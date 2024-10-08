@@ -1,0 +1,44 @@
+{
+  "zh": {
+    "translation": {
+      "sellerCenter": "賣家中心",
+      "signUp": "註冊",
+      "signIn": "登入",
+      "searchPlaceholder": "請輸入搜尋關鍵字",
+      "paymentOptions": "付款選項",
+      "logitic": "物流合作",
+      "aboutUs": "關注我們",
+      "shopperCompany": "瞎皮爾電商有限公司",
+      "registerNumber": "統一編號",
+      "allRightsReserved": "版權所有。"
+    }
+  },
+  "en": {
+    "translation": {
+      "sellerCenter": "Seller Center",
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "searchPlaceholder": "Please enter search keywords",
+      "paymentOptions": "Payment Options",
+      "logitic": "Logistics Partners",
+      "aboutUs": "About Us",
+      "shopperCompany": "Shopper E-commerce Co., Ltd.",
+      "registerNumber": "Registration Number",
+      "allRightsReserved": "All Rights Reserved."
+    }
+  },
+  "es": {
+    "translation": {
+      "sellerCenter": "Centro de vendedores",
+      "signUp": "Registrarse",
+      "signIn": "Iniciar sesión",
+      "searchPlaceholder": "Ingrese palabras clave de búsqueda",
+      "paymentOptions": "Opciones de Pago",
+      "logitic": "Socios Logísticos",
+      "aboutUs": "Sobre Nosotros",
+      "shopperCompany": "Shopper Comercio Electrónico S.A.",
+      "registerNumber": "Número de Registro",
+      "allRightsReserved": "Todos los Derechos Reservados."
+    }
+  }
+}

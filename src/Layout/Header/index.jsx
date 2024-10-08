@@ -1,5 +1,7 @@
 // 樣式模組 (css module)
 import S from './style.module.css'
+// 函式庫 (library)
+import { useTranslation } from 'react-i18next'
 // 組件 (component)
 import Logo from '../../components/Logo'
 import Anchor from '../../components/Anchor'
@@ -14,12 +16,15 @@ const user = true
 
 // 頁首
 function Header() {
+  // 語言
+  const { t } = useTranslation()
+
   return (
     <div className={S.headerWrapper}>
       <nav className={S.nav}>
         <div className={S.navLeft}>
           <Anchor style={S.seller} int="/seller">
-            賣家中心
+          {t('sellerCenter')}
           </Anchor>
         </div>
         <div className={S.navRight}>

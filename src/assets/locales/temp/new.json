@@ -1,0 +1,26 @@
+{
+  "zh": {
+    "translation": {
+      "sellerCenter": "賣家中心",
+      "signUp": "註冊",
+      "signIn": "登入",
+      "searchPlaceholder": "請輸入搜尋關鍵字"
+    }
+  },
+  "en": {
+    "translation": {
+      "sellerCenter": "Seller Center",
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "searchPlaceholder": "Please enter search keywords"
+    }
+  },
+  "es": {
+    "translation": {
+      "sellerCenter": "Centro de vendedores",
+      "signUp": "Registrarse",
+      "signIn": "Iniciar sesión",
+      "searchPlaceholder": "Ingrese palabras clave de búsqueda"
+    }
+  }
+}

@@ -1,5 +1,7 @@
 // 樣式模組 (css module)
 import S from './style.module.css'
+// 函式庫 (library)
+import { useTranslation } from 'react-i18next'
 // 圖檔 (image)
 import masterCardPng from '../../assets/img/ecpay/masterCard.png'
 import visaPng from '../../assets/img/ecpay/visa.png'
@@ -12,12 +14,15 @@ import Icon from '../../components/Icon'
 
 // 頁首
 function Footer() {
+  // 語言
+  const { t } = useTranslation()
+
   return (
     <footer className={S.footer}>
       <div className={S.platformInfo}>
         {/* 付款選項 */}
         <div className={S.category}>
-          <div className={S.catName}>付款選項</div>
+          <div className={S.catName}>{t('paymentOptions')}</div>
           <div className={S.images}>
             <img className={S.image} src={masterCardPng} />
             <img className={S.image} src={visaPng} />
@@ -26,7 +31,7 @@ function Footer() {
         </div>
         {/* 物流合作 */}
         <div className={S.category}>
-          <div className={S.catName}>物流合作</div>
+          <div className={S.catName}>{t('logitic')}</div>
           <div className={S.images}>
             <img className={S.image} src={sevenElevenPng} />
             <img className={S.image} src={familyMartPng} />
@@ -35,7 +40,7 @@ function Footer() {
         </div>
         {/* 關注我們 */}
         <div className={S.category}>
-          <div className={S.catName}>關注我們</div>
+          <div className={S.catName}>{t('aboutUs')}</div>
           <div className={S.images}>
             <Icon style={S.socialMedia} icon="faSquareFacebook" />
             <Icon style={S.socialMedia} icon="faInstagram" />
@@ -45,9 +50,9 @@ function Footer() {
       </div>
       {/* 公司資訊 */}
       <div className={S.companyInfo}>
-        <div>瞎皮爾電商有限公司</div>
-        <div>統一編號&#65306;00000000</div>
-        <div>&copy; 2024 Shopper. 版權所有。</div>
+        <div>{t('shopperCompany')}</div>
+        <div>{t('registerNumber')}&#65306;00000000</div>
+        <div>&copy; 2024 Shopper. {t('allRightsReserved')}</div>
       </div>
     </footer>
   )
