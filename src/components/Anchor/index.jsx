@@ -1,10 +1,12 @@
 // 函式庫 (library)
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 // 錨點
 function Anchor({ int, ext, style, target, children }) {
+  const { lang } = useParams()
+
   const internalLink = (
-    <Link to={int} className={style} target={target || '_self'}>
+    <Link to={`/${lang}${int}`} className={style} target={target || '_self'}>
       {children}
     </Link>
   )
