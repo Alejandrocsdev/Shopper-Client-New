@@ -3,10 +3,21 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
-  font-family: 'Noto Sans TC', 'Onest', sans-serif;
+  font-family: 'Noto Sans TC', 'Onest', sans-serif !important;
+}
+
+:root {
+  --nav-height: 35px;
+  --header-height: 85px;
+  --dark-blue: #100D25;
+  --blue: #20136d;
+  --celestial: #219ebc;
+  --white: #ECEBF5;
+  --gray: #A5A4AB;
 }
 
 a {
+  color: black;
   text-decoration: none;
 }
 

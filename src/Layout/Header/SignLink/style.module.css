@@ -1,0 +1,14 @@
+.signLink {
+  display: flex;
+  gap: 25px;
+}
+
+.signUp,
+.signIn {
+  color: var(--white);
+}
+
+.signUp:hover,
+.signIn:hover {
+  color: var(--gray);
+}
