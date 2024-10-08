@@ -9,8 +9,10 @@ import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useParams, Navigate } from 'react-router-dom'
 // 佈局組件
 import Layout from './Layout'
+import AuthLayout from './AuthLayout'
 // 頁面
 import Home from './pages/Home'
+import SignUp from './pages/SignUp'
 
 const LangRoutes = () => {
   // path="/:lang/*"
@@ -41,6 +43,10 @@ const LangRoutes = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+      </Route>
+
+      <Route path="/" element={<AuthLayout />}>
+        <Route path="/sign-up" element={<SignUp />} />
       </Route>
     </Routes>
   )

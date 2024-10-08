@@ -1,0 +1,25 @@
+.header {
+  height: var(--header-height);
+  padding: 0 160px;
+  background-color: var(--white);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.logo {
+  height: 70px;
+}
+
+.pageName {
+  min-width: 48px;
+  margin-left: 10px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .header {
+    justify-content: center;
+  }
+}

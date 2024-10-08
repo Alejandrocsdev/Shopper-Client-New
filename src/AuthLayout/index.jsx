@@ -1,18 +1,18 @@
 // 函式庫 (library)
 import { Outlet } from 'react-router-dom'
 // 組件 (component)
-import Header from './Header'
+import AuthHeader from './AuthHeader'
 import Footer from '../components/Footer'
 
 // 佈局組件
-function Layout() {
+function AuthLayout() {
   return (
     <>
-      <Header />
+      <AuthHeader pageName={'signUp'} />
       <Outlet />
       <Footer />
     </>
   )
 }
 
-export default Layout
+export default AuthLayout

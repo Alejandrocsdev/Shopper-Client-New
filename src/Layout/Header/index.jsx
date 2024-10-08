@@ -12,7 +12,7 @@ import ProfileLink from './ProfileLink'
 import Icon from '../../components/Icon'
 
 // 模仿用戶狀態
-const user = true
+const user = false
 
 // 頁首
 function Header() {
