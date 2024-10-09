@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.logo {
+.logo>img {
   height: 70px;
 }
 

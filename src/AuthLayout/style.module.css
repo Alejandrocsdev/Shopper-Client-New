@@ -1,0 +1,6 @@
+.container {
+  min-height: calc(100vh - var(--header-height));
+  background-color: var(--dark-blue);
+  display: flex;
+  justify-content: center;
+}

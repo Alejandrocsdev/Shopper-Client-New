@@ -4,7 +4,25 @@
       "sellerCenter": "賣家中心",
       "signUp": "註冊",
       "signIn": "登入",
-      "searchPlaceholder": "請輸入搜尋關鍵字"
+      "sms": "登入",
+      "reset": "重設",
+      "searchPlaceholder": "請輸入搜尋關鍵字",
+      "paymentOptions": "付款選項",
+      "logitic": "物流合作",
+      "aboutUs": "關注我們",
+      "shopperCompany": "瞎皮爾電商有限公司",
+      "registerNumber": "統一編號",
+      "allRightsReserved": "版權所有。",
+      "forgotPwd": "忘記密碼",
+      "pwdSignIn": "使用密碼登入",
+      "smsSignIn": "使用簡訊登入",
+      "or": "或",
+      "agreement": "點擊「下一步」或繼續註冊，即表示您已閱讀並同意瞎皮爾購物的",
+      "serviceTerm": "服務條款",
+      "and": "與",
+      "privacyPolicy": "隱私權政策",
+      "haveAccountQ": "已經有帳號了嗎?",
+      "newFriendQ": "蝦皮新朋友?"
     }
   },
   "en": {
@@ -12,7 +30,25 @@
       "sellerCenter": "Seller Center",
       "signUp": "Sign Up",
       "signIn": "Sign In",
-      "searchPlaceholder": "Please enter search keywords"
+      "sms": "Sign In",
+      "reset": "Reset",
+      "searchPlaceholder": "Please enter search keywords",
+      "paymentOptions": "Payment Options",
+      "logitic": "Logistics Partners",
+      "aboutUs": "About Us",
+      "shopperCompany": "Shopper E-commerce Co., Ltd.",
+      "registerNumber": "Registration Number",
+      "allRightsReserved": "All Rights Reserved.",
+      "forgotPwd": "Forgot Password",
+      "pwdSignIn": "Sign in with Password",
+      "smsSignIn": "Sign in with SMS",
+      "or": "or",
+      "agreement": "By clicking 'Next' or continuing to register, you indicate that you have read and agree to Shopper E-commerce Co., Ltd.",
+      "serviceTerm": " Terms of Service",
+      "and": " and",
+      "privacyPolicy": " Privacy Policy",
+      "haveAccountQ": "Already have an account",
+      "newFriendQ": "New to Shopper?"
     }
   },
   "es": {
@@ -20,7 +56,25 @@
       "sellerCenter": "Centro de vendedores",
       "signUp": "Registrarse",
       "signIn": "Iniciar sesión",
-      "searchPlaceholder": "Ingrese palabras clave de búsqueda"
+      "sms": "Iniciar sesión",
+      "reset": "Restablecer",
+      "searchPlaceholder": "Ingrese palabras clave de búsqueda",
+      "paymentOptions": "Opciones de Pago",
+      "logitic": "Socios Logísticos",
+      "aboutUs": "Sobre Nosotros",
+      "shopperCompany": "Shopper Comercio Electrónico S.A.",
+      "registerNumber": "Número de Registro",
+      "allRightsReserved": "Todos los Derechos Reservados.",
+      "forgotPwd": "¿Olvidaste tu contraseña?",
+      "pwdSignIn": "Iniciar sesión con contraseña",
+      "smsSignIn": "Iniciar sesión con SMS",
+      "or": "o",
+      "agreement": "Al hacer clic en 'Siguiente' o continuar con el registro, indicas que has leído y aceptas los términos de Shopper Comercio Electrónico S.A.",
+      "serviceTerm": " Términos de servicio",
+      "and": " y",
+      "privacyPolicy": " Política de privacidad",
+      "haveAccountQ": "¿Ya tiene una cuenta?",
+      "newFriendQ": "¿Eres nuevo en Shopper"
     }
   }
 }

@@ -7,7 +7,6 @@ import Icon from '../../../components/Icon'
 
 // 搜尋欄
 function SearchBar() {
-  // 語言
   const { t } = useTranslation()
 
   return (

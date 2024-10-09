@@ -35,14 +35,10 @@
 }
 
 .searchButton:hover {
-  background-color: var(--celestial);
+  background-color: var(--purple);
 }
 
 .searchIcon {
   font-size: 16px;
   color: var(--white);
-}
-
-.searchButton:hover .searchIcon {
-  color: black;
 }

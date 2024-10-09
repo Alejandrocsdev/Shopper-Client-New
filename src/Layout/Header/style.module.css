@@ -30,7 +30,7 @@
   align-items: center;
 }
 
-.logo {
+.logo>img {
   height: 70px;
   margin-right: 10px;
 }
@@ -57,7 +57,7 @@
   color: var(--celestial);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .large {
     display: none;
   }
@@ -82,5 +82,9 @@
 
   .header {
     padding: 0 10px;
+  }
+
+  .cart {
+    margin: 0 15px;
   }
 }

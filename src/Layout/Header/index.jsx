@@ -16,7 +16,6 @@ const user = false
 
 // 頁首
 function Header() {
-  // 語言
   const { t } = useTranslation()
 
   return (

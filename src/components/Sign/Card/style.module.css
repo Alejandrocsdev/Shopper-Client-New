@@ -1,0 +1,76 @@
+.card {
+  width: 400px;
+  padding: 30px;
+  background-color: var(--white);
+  border-radius: 5px;
+}
+
+/* 標題 */
+.cardName {
+  padding-bottom: 26px;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+}
+
+/* 幫助 */
+.help {
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.help>.link:nth-child(0) {
+  text-align: left;
+}
+
+.help>.link:nth-child(1) {
+  text-align: right;
+}
+
+/* 分隔線 */
+.breakLine {
+  display: flex;
+}
+
+.breakLine .line {
+  width: 100%;
+  height: 0.5px;
+  margin: auto 0;
+  background-color: var(--gray);
+}
+
+.breakLine .or {
+  padding: 0 16px;
+  font-size: 12px;
+  color: var(--gray);
+}
+
+/* 條款與政策 */
+.policy {
+  margin-top: 30px;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* 切換 */
+.switch {
+  margin-top: 30px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.switch .text {
+  margin-right: 5px;
+  color: var(--gray);
+}
+
+/* 通用 */
+.link {
+  color: var(--celestial);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: var(--dark-celestial);
+}

@@ -41,11 +41,12 @@ function Logo({
 
   const src = getSrc()
 
-  const img = <img className={style} src={src} />
+  const img = <img src={src} />
 
-  const linked = <Anchor int="/">{img}</Anchor>
+  const unlinked = <div className={style}>{img}</div>
+  const linked = <Anchor style={style} int="/">{img}</Anchor>
 
-  return <div>{unlink ? img : linked}</div>
+  return <>{unlink ? unlinked : linked}</>
 }
 
 export default Logo

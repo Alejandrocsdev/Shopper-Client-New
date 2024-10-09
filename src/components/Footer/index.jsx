@@ -14,7 +14,6 @@ import Icon from '../../components/Icon'
 
 // 頁首
 function Footer() {
-  // 語言
   const { t } = useTranslation()
 
   return (

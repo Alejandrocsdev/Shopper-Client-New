@@ -7,7 +7,6 @@ import Anchor from '../../../components/Anchor'
 
 // 登入／註冊　連結
 function SignLink() {
-  // 語言
   const { t } = useTranslation()
 
   return (
