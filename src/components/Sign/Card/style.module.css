@@ -41,8 +41,13 @@
 
 .breakLine .or {
   padding: 0 16px;
+  margin: 25px 0;
   font-size: 12px;
   color: var(--gray);
+}
+
+.adjust {
+  margin: 10px 0;
 }
 
 /* 條款與政策 */

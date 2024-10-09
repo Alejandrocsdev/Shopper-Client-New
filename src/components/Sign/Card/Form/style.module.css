@@ -1,0 +1,8 @@
+.textWarning {
+  width: 100%;
+  height: 21px;
+  padding-top: 5px;
+  margin-bottom: 10px;
+  color: var(--error-red);
+  font-size: 12px;
+}

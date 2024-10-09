@@ -1,0 +1,16 @@
+.formError {
+  margin-bottom: 30px;
+  padding: 12px 15px;
+  background-color: var(--error-bg);
+  border: 1px solid var(--error-red);
+  display: flex;
+}
+
+.crossIcon {
+  margin-right: 10px;
+  color: red;
+}
+
+.message {
+  font-size: 14px;
+}

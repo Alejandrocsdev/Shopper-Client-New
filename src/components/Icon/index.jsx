@@ -1,16 +1,20 @@
 // Font Awesome
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareFacebook, faInstagram, faLine } from '@fortawesome/free-brands-svg-icons'
-// import {  } from '@fortawesome/free-regular-svg-icons'
-import { faCartShopping, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-regular-svg-icons'
+import { faCartShopping, faMagnifyingGlass, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 // Icon mapping
 const iconMap = {
   faSquareFacebook,
   faInstagram,
   faLine,
+  faCircleCheck,
+  faCircleXmark,
   faCartShopping,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faEye,
+  faEyeSlash
 }
 
 // 圖示

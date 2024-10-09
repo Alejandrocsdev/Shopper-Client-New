@@ -7,6 +7,8 @@ import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
 import Anchor from '../../Anchor'
+import Form from './Form'
+import ThirdPartySign from './ThirdPartySign'
 
 // 表單容器: 密碼登入 / 簡訊登入 / 註冊
 function Card() {
@@ -21,6 +23,9 @@ function Card() {
     <div className={S.card}>
       {/* 標題 */}
       <h1 className={S.cardName}>{t(signUp ? 'signUp' : 'signIn')}</h1>
+
+      {/* 表單 */}
+      <Form />
 
       {/* 幫助 */}
       <div className={S.help}>
@@ -37,11 +42,14 @@ function Card() {
       </div>
 
       {/* 分隔線 */}
-      <div className={S.breakLine} style={{ margin: `${signUp ? 25 : 10}px 0` }}>
+      <div className={`${S.breakLine} ${signUp ? '' : S.adjust}`}>
         <div className={S.line}></div>
         <div className={S.or}>{t('or')}</div>
         <div className={S.line}></div>
       </div>
+
+      {/* 第三方登入/註冊 */}
+      <ThirdPartySign />
 
       {/* 條款與政策 */}
       <div className={S.policy}>

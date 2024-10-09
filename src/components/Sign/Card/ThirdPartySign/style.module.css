@@ -1,0 +1,28 @@
+.thirdParty {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.button {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
+  background-color: var(--white);
+  border: 1px solid var(--gray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.button:hover {
+  background-color: var(--dark-gray);
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+}

@@ -1,0 +1,28 @@
+.inputContainer {
+  height: 40px;
+  display: flex;
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--gray);
+  outline: 0;
+}
+
+.input:focus {
+  border: 1px solid black;
+}
+
+.iconContainer {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon {
+  font-size: 18px;
+  color: var(--valid-green);
+}

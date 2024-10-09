@@ -14,8 +14,12 @@
   --purple: #423597;
   --dark-celestial: #176d82;
   --celestial: #219ebc;
-  --white: #ECEBF5;
+  --dark-gray: #bfbbdd;
   --gray: #A5A4AB;
+  --white: #ECEBF5;
+  --error-red: #ff424f;
+  --error-bg: #ffdae0;
+  --valid-green: #66CC00;
 }
 
 a {
