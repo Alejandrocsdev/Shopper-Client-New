@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useAuthStep } from '../../context/AuthStepContext'
 import { useAuthMode } from '../../context/AuthModeContext'
 // 組件
-import Sign from '../../components/Sign'
+import SignCard from '../../components/SignCard'
 
 // 登入流程
 function SignIn() {
@@ -13,13 +13,9 @@ function SignIn() {
 
   useEffect(() => {
     setMode('signIn')
-  }, [])
+  }, [setMode])
 
-  return (
-    <>
-      {step === 0 && <Sign />}
-    </>
-  )
+  return <>{step === 0 && <SignCard />}</>
 }
 
 export default SignIn

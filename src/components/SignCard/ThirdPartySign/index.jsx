@@ -1,8 +1,8 @@
 // 模組樣式
 import S from './style.module.css'
 // PNG 圖檔
-import facebookPng from '../../../../assets/img/thirdParty/facebook.png'
-import googlePng from '../../../../assets/img/thirdParty/google.png'
+import facebookPng from '../../../assets/img/thirdParty/facebook.png'
+import googlePng from '../../../assets/img/thirdParty/google.png'
 
 // 第三方 登入 / 註冊
 const ThirdPartySign = () => {

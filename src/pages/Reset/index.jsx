@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useAuthStep } from '../../context/AuthStepContext'
 import { useAuthMode } from '../../context/AuthModeContext'
 // 組件
-import Sign from '../../components/Sign'
+import SignCard from '../../components/SignCard'
 
 // 重設流程
 function Reset() {
@@ -13,9 +13,9 @@ function Reset() {
 
   useEffect(() => {
     setMode('reset')
-  }, [])
+  }, [setMode])
 
-  return <>{step === 0 && <Sign />}</>
+  return <>{step === 0 && <SignCard />}</>
 }
 
 export default Reset

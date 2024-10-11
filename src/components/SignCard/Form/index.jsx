@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
-import { useAuthStep } from '../../../../context/AuthStepContext'
-import { useAuthMode } from '../../../../context/AuthModeContext'
+import { useAuthStep } from '../../../context/AuthStepContext'
+import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
 import FormError from './FormError'
 import PhoneInput from './PhoneInput'
@@ -53,13 +53,13 @@ const Form = () => {
 
   useEffect(() => {
     reset()
-  }, [modeStates, reset])
+  }, [isSignIn, isSignUp, reset])
 
   const onSubmit = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000))
       console.log('Form data:', data)
-      // next()
+      next()
     } catch (error) {
       console.error('Submission Error:', error)
       setError('root', error)

@@ -3,7 +3,7 @@ import S from './style.module.css'
 // 函式庫 (library)
 import { useTranslation } from 'react-i18next'
 // 組件 (component)
-import Icon from '../../../../Icon'
+import Icon from '../../../Icon'
 
 // 電話輸入欄
 const PhoneInput = ({ check, register, name }) => {

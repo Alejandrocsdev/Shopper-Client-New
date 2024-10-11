@@ -10,6 +10,10 @@ export const AuthModeProvider = ({ children }) => {
 
   const toggleSMS = () => setIsSMS(!isSMS)
 
+  useEffect(() => {
+    setIsSMS(false)
+  }, [mode])
+
   const modeStates = {
     isSMS,
     isSignIn: isSMS ? false : mode === 'signIn',

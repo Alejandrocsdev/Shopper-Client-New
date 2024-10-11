@@ -2,7 +2,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareFacebook, faInstagram, faLine } from '@fortawesome/free-brands-svg-icons'
 import { faCircleCheck, faCircleXmark } from '@fortawesome/free-regular-svg-icons'
-import { faCartShopping, faMagnifyingGlass, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import {
+  faCartShopping,
+  faMagnifyingGlass,
+  faEye,
+  faEyeSlash,
+  faCheck,
+  faArrowRightLong,
+  faArrowLeftLong
+} from '@fortawesome/free-solid-svg-icons'
 
 // Icon mapping
 const iconMap = {
@@ -14,7 +22,10 @@ const iconMap = {
   faCartShopping,
   faMagnifyingGlass,
   faEye,
-  faEyeSlash
+  faEyeSlash,
+  faCheck,
+  faArrowRightLong,
+  faArrowLeftLong
 }
 
 // 圖示
