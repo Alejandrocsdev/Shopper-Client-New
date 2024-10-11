@@ -1,0 +1,22 @@
+.cardText {
+  margin: 10px 0;
+}
+
+.text {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.phone {
+  color: orangered;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.submit {
+  margin-top: 20px;
+  font-weight: 700;
+  border-radius: 5px;
+}

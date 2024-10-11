@@ -15,7 +15,6 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 // import Reset from './pages/Reset'
-// import Step1 from './pages/SignUp/Step1'
 
 const LangRoutes = () => {
   // path="/:lang/*"
@@ -52,7 +51,6 @@ const LangRoutes = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         {/* <Route path="/reset" element={<Reset />} /> */}
-        {/* <Route path="/step-1" element={<Step1 />} /> */}
       </Route>
     </Routes>
   )

@@ -44,6 +44,10 @@
 }
 
 @media (max-width: 650px) {
+  .main {
+    width: 340px;
+  }
+
   .back {
     width: 40px;
     font-size: 20px;

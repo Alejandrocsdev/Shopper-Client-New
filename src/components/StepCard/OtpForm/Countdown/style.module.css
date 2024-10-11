@@ -1,0 +1,21 @@
+.countdown,
+.resend {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown {
+  color: gray;
+}
+
+.resend span:nth-child(2) {
+  color: var(--celestial);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.resend span:nth-child(2):hover {
+  color: var(--dark-celestial);
+}
