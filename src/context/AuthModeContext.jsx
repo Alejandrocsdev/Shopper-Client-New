@@ -1,18 +1,28 @@
-import { createContext, useContext, useState } from 'react'
+// 函式庫 (library)
+import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthModeContext = createContext()
 
 // (1)
-export const useAuthMode = () => useContext(AuthModeContext)
-
-// (2)
 export const AuthModeProvider = ({ children }) => {
   const [mode, setMode] = useState(null)
-  // signIn, signUp, sms, reset 
+  const [isSMS, setIsSMS] = useState(false)
 
-  const onMode = (newMode) => setMode(newMode)
+  const toggleSMS = () => setIsSMS(!isSMS)
+
+  const modeStates = {
+    isSMS,
+    isSignIn: isSMS ? false : mode === 'signIn',
+    isSignUp: isSMS ? false : mode === 'signUp',
+    isReset: isSMS ? false : mode === 'reset'
+  }
 
   return (
-    <AuthModeContext.Provider value={{ mode, onMode }}>{children}</AuthModeContext.Provider>
+    <AuthModeContext.Provider value={{ mode, setMode, modeStates, toggleSMS }}>
+      {children}
+    </AuthModeContext.Provider>
   )
 }
+
+// (2)
+export const useAuthMode = () => useContext(AuthModeContext)

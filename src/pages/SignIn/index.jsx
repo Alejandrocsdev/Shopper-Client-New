@@ -6,16 +6,20 @@ import { useAuthMode } from '../../context/AuthModeContext'
 // 組件
 import Sign from '../../components/Sign'
 
-// 註冊流程
-function SignUp() {
+// 登入流程
+function SignIn() {
   const { step } = useAuthStep()
   const { setMode } = useAuthMode()
 
   useEffect(() => {
-    setMode('signUp')
+    setMode('signIn')
   }, [])
 
-  return <>{step === 0 && <Sign />}</>
+  return (
+    <>
+      {step === 0 && <Sign />}
+    </>
+  )
 }
 
-export default SignUp
+export default SignIn

@@ -17,19 +17,14 @@
 .help {
   margin: 10px 0;
   font-size: 12px;
-}
-
-.help>.link:nth-child(0) {
-  text-align: left;
-}
-
-.help>.link:nth-child(1) {
-  text-align: right;
+  display: flex;
+  justify-content: space-between;
 }
 
 /* 分隔線 */
 .breakLine {
   display: flex;
+  margin: 25px 0;
 }
 
 .breakLine .line {
@@ -41,7 +36,6 @@
 
 .breakLine .or {
   padding: 0 16px;
-  margin: 25px 0;
   font-size: 12px;
   color: var(--gray);
 }

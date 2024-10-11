@@ -6,16 +6,16 @@ import { useAuthMode } from '../../context/AuthModeContext'
 // 組件
 import Sign from '../../components/Sign'
 
-// 註冊流程
-function SignUp() {
+// 重設流程
+function Reset() {
   const { step } = useAuthStep()
   const { setMode } = useAuthMode()
 
   useEffect(() => {
-    setMode('signUp')
+    setMode('reset')
   }, [])
 
   return <>{step === 0 && <Sign />}</>
 }
 
-export default SignUp
+export default Reset

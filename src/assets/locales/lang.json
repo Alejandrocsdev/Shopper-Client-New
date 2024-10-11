@@ -22,7 +22,14 @@
       "and": "與",
       "privacyPolicy": "隱私權政策",
       "haveAccountQ": "已經有帳號了嗎?",
-      "newFriendQ": "蝦皮新朋友?"
+      "newFriendQ": "蝦皮新朋友?",
+      "next": "下一步",
+      "previous": "上一步",
+      "fillInput": "請填寫此欄位",
+      "fillPhone": "請輸入有效行動電話號碼",
+      "phoneUserEmail": "電話號碼/使用者名稱/Email",
+      "password": "密碼",
+      "phoneNumber": "手機號碼"
     }
   },
   "en": {
@@ -48,7 +55,14 @@
       "and": " and",
       "privacyPolicy": " Privacy Policy",
       "haveAccountQ": "Already have an account",
-      "newFriendQ": "New to Shopper?"
+      "newFriendQ": "New to Shopper?",
+      "next": "Next",
+      "previous": "Previous",
+      "fillInput": "請填寫此欄位",
+      "fillPhone": "請輸入有效行動電話號碼",
+      "phoneUserEmail": "電話號碼/使用者名稱/Email",
+      "password": "密碼",
+      "phoneNumber": "手機號碼"
     }
   },
   "es": {
@@ -74,7 +88,14 @@
       "and": " y",
       "privacyPolicy": " Política de privacidad",
       "haveAccountQ": "¿Ya tiene una cuenta?",
-      "newFriendQ": "¿Eres nuevo en Shopper"
+      "newFriendQ": "¿Eres nuevo en Shopper",
+      "next": "Siguiente",
+      "previous": "Anterior",
+      "fillInput": "請填寫此欄位",
+      "fillPhone": "請輸入有效行動電話號碼",
+      "phoneUserEmail": "電話號碼/使用者名稱/Email",
+      "password": "密碼",
+      "phoneNumber": "手機號碼"
     }
   }
 }
