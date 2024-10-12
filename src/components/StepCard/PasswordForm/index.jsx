@@ -41,9 +41,8 @@ function PasswordForm() {
     shouldFocusError: false // true by default
   })
 
-  console.log(dirtyFields)
-
   const password = watch('password', '')
+  const isDirty = dirtyFields.password
 
   const onSubmit = async (data) => {
     try {
@@ -70,9 +69,9 @@ function PasswordForm() {
       <PasswordInput
         criteria
         password={password}
+        isDirty={isDirty}
         register={register}
         name="password"
-        touched={dirtyFields.password}
       />
 
       {/* 執行下一步 */}

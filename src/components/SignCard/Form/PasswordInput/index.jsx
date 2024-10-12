@@ -7,7 +7,11 @@ import { useTranslation } from 'react-i18next'
 import Icon from '../../../Icon'
 
 // 密碼輸入欄
-const PasswordInput = ({ criteria, password, register, name, touched }) => {
+const PasswordInput = ({ register, name, criteria, password = '', isDirty, errors = false }) => {
+  // criteria: boolean
+  // password: watch('password', '')
+  // isDirty: dirtyFields.password
+  // errors: errors
   const { t } = useTranslation()
   const [showPwd, setShowPwd] = useState(false)
   const togglePassword = () => setShowPwd(!showPwd)
@@ -24,17 +28,17 @@ const PasswordInput = ({ criteria, password, register, name, touched }) => {
     setIsNumber(/\d/.test(password))
   }, [password])
 
-    // 條件樣式(綠/紅)
-    const getCriteriaClass = (isValid) => {
-      if (!touched) return ''
-      return isValid ? S.valid : S.invalid
-    }
+  // 條件樣式(綠/紅)
+  const getCriteriaClass = (isValid) => {
+    if (!isDirty) return ''
+    return isValid ? S.valid : S.invalid
+  }
 
   return (
     <>
       <div className={S.inputContainer}>
         <input
-          className={S.input}
+          className={`${S.input} ${errors[name] ? S.inputWarning : ''}`}
           type={showPwd ? 'text' : 'password'}
           placeholder={t('password')}
           {...register(name)}
@@ -44,6 +48,8 @@ const PasswordInput = ({ criteria, password, register, name, touched }) => {
           <Icon style={S.eyeIcon} icon={showPwd ? 'faEye' : 'faEyeSlash'} />
         </div>
       </div>
+      {/* 錯誤訊息 */}
+      {errors && <div className={S.textWarning}>{errors[name] ? t('fillInput') : ''}</div>}
 
       {criteria && (
         <div className={S.criteria}>

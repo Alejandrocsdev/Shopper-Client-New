@@ -6,18 +6,28 @@ import { useTranslation } from 'react-i18next'
 import Icon from '../../../Icon'
 
 // 電話輸入欄
-const PhoneInput = ({ check, register, name }) => {
+const PhoneInput = ({ check, register, name, errors }) => {
   const { t } = useTranslation()
 
   return (
-    <div className={S.inputContainer}>
-      <input className={S.input} type="tel" placeholder={t('phoneNumber')} {...register(name)} maxLength="10" />
-      {check && (
-        <div className={S.iconContainer}>
-          <Icon style={S.icon} icon="faCircleCheck" />
-        </div>
-      )}
-    </div>
+    <>
+      <div className={S.inputContainer}>
+        <input
+          className={`${S.input} ${errors[name] ? S.inputWarning : ''}`}
+          type="tel"
+          placeholder={t('phoneNumber')}
+          {...register(name)}
+          maxLength="10"
+        />
+        {check && (
+          <div className={S.iconContainer}>
+            <Icon style={S.icon} icon="faCircleCheck" />
+          </div>
+        )}
+      </div>
+      {/* 錯誤訊息 */}
+      <div className={S.textWarning}>{errors[name] ? t('fillPhone') : ''}</div>
+    </>
   )
 }
 

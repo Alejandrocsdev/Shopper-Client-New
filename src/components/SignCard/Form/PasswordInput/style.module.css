@@ -44,6 +44,24 @@
   color: red;
 }
 
+.textWarning {
+  width: 100%;
+  height: 21px;
+  padding-top: 5px;
+  margin-bottom: 10px;
+  color: var(--error-red);
+  font-size: 12px;
+}
+
+.inputWarning {
+  background-color: #ffeaed;
+  border: 1px solid #ff424f;
+}
+
+.inputWarning:focus {
+  border: 1px solid #ff424f;
+}
+
 @media (max-width: 650px) {
   .text {
     font-size: 14px;

@@ -19,15 +19,18 @@ import PasswordInput from './PasswordInput'
 const Form = () => {
   const { t } = useTranslation()
   const { next, previous } = useAuthStep()
-  const { modeStates } = useAuthMode()
-  const { isSignIn, isSignUp } = modeStates
+  const { isSignIn, isSignUp } = useAuthMode().modeStates
 
   const schema = Joi.object({
-    loginKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
-    password: isSignIn
-      ? Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
+    loginKey: isSignIn 
+      ? Joi.string().required() 
       : Joi.string().forbidden(),
-    phone: !isSignIn ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
+    password: isSignIn
+      ? Joi.string().required()
+      : Joi.string().forbidden(),
+    phone: !isSignIn 
+      ? Joi.string().regex(/^09/).length(10).required() 
+      : Joi.string().forbidden()
   })
 
   const {
@@ -50,7 +53,7 @@ const Form = () => {
 
   useEffect(() => {
     reset()
-  }, [isSignIn, isSignUp, reset])
+  }, [isSignIn, isSignUp])
 
   const onSubmit = async (data) => {
     try {
@@ -78,18 +81,14 @@ const Form = () => {
           />
         </div>
       )}
-
+      {/* 錯誤訊息 */}
       {isSignIn && <div className={S.textWarning}>{errors.loginKey ? t('fillInput') : ''}</div>}
 
       {/* password */}
-      {isSignIn && <PasswordInput register={register} name="password" />}
-
-      {isSignIn && <div className={S.textWarning}>{errors.password ? t('fillInput') : ''}</div>}
+      {isSignIn && <PasswordInput register={register} name="password" errors={errors} />}
 
       {/* phone */}
-      {!isSignIn && <PhoneInput check={false} register={register} name="phone" />}
-
-      {!isSignIn && <div className={S.textWarning}>{errors.phone ? t('fillInput') : ''}</div>}
+      {!isSignIn && <PhoneInput check={isValid} register={register} name="phone" errors={errors} />}
 
       <SubmitButton isValid={isValid} isSubmitting={isSubmitting}>
         {t(isSignIn ? 'signIn' : 'next')}
