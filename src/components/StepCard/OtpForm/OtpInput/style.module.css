@@ -20,6 +20,10 @@
   outline-offset: 2px;
 }
 
+.hide {
+  display: none;
+}
+
 @media (max-width: 650px) {
   .otpInput {
     width: 35px;

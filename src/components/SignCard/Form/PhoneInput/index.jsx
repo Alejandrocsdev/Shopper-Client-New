@@ -11,7 +11,7 @@ const PhoneInput = ({ check, register, name }) => {
 
   return (
     <div className={S.inputContainer}>
-      <input className={S.input} type="tel" placeholder={t('phoneNumber')} {...register(name)} />
+      <input className={S.input} type="tel" placeholder={t('phoneNumber')} {...register(name)} maxLength="10" />
       {check && (
         <div className={S.iconContainer}>
           <Icon style={S.icon} icon="faCircleCheck" />

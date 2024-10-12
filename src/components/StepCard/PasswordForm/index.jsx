@@ -1,26 +1,29 @@
 // 模組樣式
 import S from './style.module.css'
+
 // 函式庫 (library)
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-import axios from '../../../api/axios'
-import { useState, useEffect, useRef } from 'react'
+// import axios from '../../../api/axios'
+// import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 // import { useNavigate } from 'react-router-dom'
+
 // 自訂函式
 import { useAuthStep } from '../../../context/AuthStepContext'
+
 // 組件 (component)
-import Countdown from './Countdown'
-import OtpInput from './OtpInput'
+import Icon from '../../Icon'
+import PasswordInput from '../../../components/SignCard/Form/PasswordInput'
 import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
-function OtpForm() {
+function PasswordForm() {
   const { t } = useTranslation()
   const { next } = useAuthStep()
 
   const schema = Joi.object({
-    otp: Joi.string().length(6).pattern(/^\d+$/).required()
+    password: Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
   })
 
   const {
@@ -29,13 +32,16 @@ function OtpForm() {
     formState: { errors, isValid, isSubmitting },
     setValue,
     trigger,
-    setError
+    setError,
+    watch
   } = useForm({
     resolver: joiResolver(schema),
     mode: 'onChange', // 'onSubmit' by default
     reValidateMode: 'onChange', // 'onChange' by default
     shouldFocusError: false // true by default
   })
+
+  const password = watch('password', '')
 
   const onSubmit = async (data) => {
     try {
@@ -52,22 +58,21 @@ function OtpForm() {
     <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
       {/* 表單文字 */}
       <div className={S.cardText}>
-        <div className={S.text}>您的驗證碼已透過簡訊傳送至</div>
-        <div className={S.phone}>0938473300</div>
+        <div className={S.text}>
+          {false ? '最後一步! 請設定您的密碼以完成登入' : '設定一組新密碼給'}
+        </div>
+        {true && <div className={S.method}>{true ? 'phone' : 'email'}</div>}
       </div>
 
-      {/* OTP輸入框 */}
-      <OtpInput register={register} name="otp" setValue={setValue} trigger={trigger} />
-
-      {/* OTP發送倒數 & 重新傳送 */}
-      <Countdown />
+      {/* 密碼輸入欄 (含條件) */}
+      <PasswordInput criteria password={password} register={register} name="password" />
 
       {/* 執行下一步 */}
       <SubmitButton style={S.submit} isValid={isValid} isSubmitting={isSubmitting}>
-        {t('next')}
+        {true ? '註冊' : '重設'}
       </SubmitButton>
     </form>
   )
 }
 
-export default OtpForm
+export default PasswordForm

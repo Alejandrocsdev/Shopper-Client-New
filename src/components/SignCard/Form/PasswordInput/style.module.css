@@ -22,7 +22,34 @@
   transform: translateY(-50%);
 }
 
-.icon {
+.eyeIcon {
   font-size: 18px;
   cursor: pointer;
+}
+
+.criteriaText {
+  margin-top: 8px;
+  color: gray;
+}
+
+.valIcon {
+  margin: 0 5px
+}
+
+.valid {
+  color: green;
+}
+
+.invalid {
+  color: red;
+}
+
+@media (max-width: 650px) {
+  .text {
+    font-size: 14px;
+  }
+
+  .criteriaText {
+    font-size: 14px;
+  }
 }

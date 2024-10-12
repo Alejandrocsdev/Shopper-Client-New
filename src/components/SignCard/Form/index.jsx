@@ -25,17 +25,9 @@ const Form = () => {
   const schema = Joi.object({
     loginKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
     password: isSignIn
-      ? Joi.string()
-          .min(8)
-          .max(16)
-          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]+$/)
-          .required()
+      ? Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
       : Joi.string().forbidden(),
-    phone: !isSignIn
-      ? Joi.string()
-          .pattern(/^09\d{8}$/)
-          .required()
-      : Joi.string().forbidden()
+    phone: !isSignIn ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
   })
 
   const {

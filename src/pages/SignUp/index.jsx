@@ -6,6 +6,7 @@ import { useAuthMode } from '../../context/AuthModeContext'
 // 組件
 import SignCard from '../../components/SignCard'
 import Step1 from './Step1'
+import Step2 from './Step2'
 
 // 註冊流程
 function SignUp() {
@@ -20,6 +21,7 @@ function SignUp() {
     <>
       {step === 0 && <SignCard />}
       {step === 1 && <Step1 back name="輸入驗證碼" />}
+      {step === 2 && <Step2 name="設定您的密碼" />}
     </>
   )
 }
