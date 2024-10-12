@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import Icon from '../../../Icon'
 
 // 密碼輸入欄
-const PasswordInput = ({ criteria, password, register, name }) => {
+const PasswordInput = ({ criteria, password, register, name, touched }) => {
   const { t } = useTranslation()
   const [showPwd, setShowPwd] = useState(false)
   const togglePassword = () => setShowPwd(!showPwd)
@@ -23,6 +23,12 @@ const PasswordInput = ({ criteria, password, register, name }) => {
     setIsLength(password?.length >= 8 && password?.length <= 16)
     setIsNumber(/\d/.test(password))
   }, [password])
+
+    // 條件樣式(綠/紅)
+    const getCriteriaClass = (isValid) => {
+      if (!touched) return ''
+      return isValid ? S.valid : S.invalid
+    }
 
   return (
     <>
@@ -42,28 +48,28 @@ const PasswordInput = ({ criteria, password, register, name }) => {
       {criteria && (
         <div className={S.criteria}>
           {/* 小寫 */}
-          <div className={`${S.criteriaText} ${isLowerCase ? S.valid : S.invalid}`}>
+          <div className={`${S.criteriaText} ${getCriteriaClass(isLowerCase)}`}>
             <span>
               <Icon style={S.valIcon} icon={isLowerCase ? 'faCircleCheck' : 'faCircleXmark'} />
             </span>
             <span>包含至少一個小寫字母</span>
           </div>
           {/* 大寫 */}
-          <div className={`${S.criteriaText} ${isUpperCase ? S.valid : S.invalid}`}>
+          <div className={`${S.criteriaText} ${getCriteriaClass(isUpperCase)}`}>
             <span>
               <Icon style={S.valIcon} icon={isUpperCase ? 'faCircleCheck' : 'faCircleXmark'} />
             </span>
             <span>包含至少一個大寫字母</span>
           </div>
           {/* 數字 */}
-          <div className={`${S.criteriaText} ${isNumber ? S.valid : S.invalid}`}>
+          <div className={`${S.criteriaText} ${getCriteriaClass(isNumber)}`}>
             <span>
               <Icon style={S.valIcon} icon={isNumber ? 'faCircleCheck' : 'faCircleXmark'} />
             </span>
             <span>包含至少一個數字</span>
           </div>
           {/* 字數 */}
-          <div className={`${S.criteriaText} ${isLength ? S.valid : S.invalid}`}>
+          <div className={`${S.criteriaText} ${getCriteriaClass(isLength)}`}>
             <span>
               <Icon style={S.valIcon} icon={isLength ? 'faCircleCheck' : 'faCircleXmark'} />
             </span>

@@ -29,7 +29,7 @@ function PasswordForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid, isSubmitting, dirtyFields },
     setValue,
     trigger,
     setError,
@@ -40,6 +40,8 @@ function PasswordForm() {
     reValidateMode: 'onChange', // 'onChange' by default
     shouldFocusError: false // true by default
   })
+
+  console.log(dirtyFields)
 
   const password = watch('password', '')
 
@@ -65,7 +67,13 @@ function PasswordForm() {
       </div>
 
       {/* 密碼輸入欄 (含條件) */}
-      <PasswordInput criteria password={password} register={register} name="password" />
+      <PasswordInput
+        criteria
+        password={password}
+        register={register}
+        name="password"
+        touched={dirtyFields.password}
+      />
 
       {/* 執行下一步 */}
       <SubmitButton style={S.submit} isValid={isValid} isSubmitting={isSubmitting}>

@@ -38,10 +38,15 @@ const Form = () => {
     reset
   } = useForm({
     resolver: joiResolver(schema),
-    mode: 'onSubmit', // 'onSubmit' by default
-    reValidateMode: 'onChange', // 'onChange' by default
+    mode: 'onChange', // 'onSubmit' by default // onSubmit | onBlur | onChange | onTouched | all
+    reValidateMode: 'onChange', // 'onChange' by default // onChange | onBlur | onSubmit = 'onChange'
     shouldFocusError: false // true by default
   })
+
+  // onTouched: Focuses the field and then blurs (tracks if the field was interacted with).
+  // onDirty: The first time the value of the field changes from its initial state.
+  // onChange: Every time the value changes.
+  // onBlur: When the field loses focus.
 
   useEffect(() => {
     reset()
