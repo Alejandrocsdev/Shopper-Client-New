@@ -7,15 +7,19 @@ const AuthStepContext = createContext()
 // (1)
 export const AuthStepProvider = ({ children }) => {
   const [step, setStep] = useState(0)
+  const [userPass, setUserPass] = useState({})
   const location = useLocation()
-  const next = () => setStep((prevStep) => prevStep + 1)
+  const next = (userPass) => {
+    setUserPass(userPass)
+    setStep((prevStep) => prevStep + 1)
+  }
   const previous = () => setStep((prevStep) => prevStep - 1)
   useEffect(() => {
     setStep(0)
   }, [location.pathname])
 
   return (
-    <AuthStepContext.Provider value={{ step, setStep, next, previous }}>
+    <AuthStepContext.Provider value={{ userPass, step, setStep, next, previous }}>
       {children}
     </AuthStepContext.Provider>
   )

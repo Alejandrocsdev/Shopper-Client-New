@@ -4,23 +4,28 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-import axios from '../../../api/axios'
 import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 // import { useNavigate } from 'react-router-dom'
-// 自訂函式
+// 自訂函式 (custom function)
+import { sendOtp, verifyOtp } from '../../../api/request/verification'
+import { getUserByData } from '../../../api/request/user'
 import { useAuthStep } from '../../../context/AuthStepContext'
+import { useAuthMode } from '../../../context/AuthModeContext'
 import useCountdown from '../../../hooks/useCountdown'
 // 組件 (component)
+import FormError from '../../SignCard/Form/FormError'
 import Countdown from './Countdown'
 import OtpInput from './OtpInput'
 import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
 function OtpForm() {
   const { t } = useTranslation()
-  const { next } = useAuthStep()
+  const { userPass, next } = useAuthStep()
+  const { isSignIn, isSignUp } = useAuthMode().modeStates
+  const { count, isCounting, startCountdown } = useCountdown(60, () => {})
 
-  const { count, isCounting, startCountdown } = useCountdown(2, () => {})
+  const { phone } = userPass
 
   const schema = Joi.object({
     otp: Joi.string().length(6).pattern(/^\d+$/).required()
@@ -46,31 +51,45 @@ function OtpForm() {
 
   const handleResend = async () => {
     try {
-      // Trigger resend logic here (e.g., resend OTP via API)
-      console.log('Resending OTP...')
+      const response = await sendOtp(phone)
+      console.log('Resend OTP Response:', response.message)
 
-      // await axios.post('/otp/resend', { phone: '0938473300' })
-
-      // Restart the countdown after OTP is resent
       startCountdown()
     } catch (error) {
-      console.error('Resend OTP Error:', error)
+      console.error(error.message)
+      setError('root', { message: t(error.i18n) })
     }
   }
 
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      console.log('Form data:', data)
-      next()
+      if (isSignUp) {
+        console.log('Sent Data:', data)
+
+        const otpResponse = await verifyOtp(phone, data.otp)
+        console.log('OTP Response:', otpResponse.message)
+
+        const userResponse = await getUserByData(`phone:${phone}`)
+        console.log('User Response:', userResponse.message)
+
+        const { exist, id, username, avatar } = userResponse.userData
+
+        if (exist) {
+          next({ id, username, avatar, phone })
+        } else {
+          next({ phone })
+        }
+      }
     } catch (error) {
-      console.error('Submission Error:', error)
-      setError('root', error)
+      console.error(error.message)
+      setError('root', { message: t(error.i18n) })
     }
   }
 
   return (
     <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
+      {errors.root && <FormError message={errors.root.message} />}
+
       {/* 表單文字 */}
       <div className={S.cardText}>
         <div className={S.text}>您的驗證碼已透過簡訊傳送至</div>
@@ -84,7 +103,9 @@ function OtpForm() {
       {/* <Countdown /> */}
       <div className={isCounting ? S.countdown : S.resend}>
         <span>{isCounting ? count : '沒有收到驗證碼嗎？'}</span>
-        <span onClick={isCounting ? undefined : handleResend}>{isCounting ? '秒後' : ''}重新傳送</span>
+        <span onClick={isCounting ? undefined : handleResend}>
+          {isCounting ? '秒後' : ''}重新傳送
+        </span>
       </div>
 
       {/* 執行下一步 */}

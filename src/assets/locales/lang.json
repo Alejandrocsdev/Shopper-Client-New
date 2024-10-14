@@ -29,7 +29,9 @@
       "fillPhone": "請輸入有效行動電話號碼",
       "phoneUserEmail": "電話號碼/使用者名稱/Email",
       "password": "密碼",
-      "phoneNumber": "手機號碼"
+      "phoneNumber": "手機號碼",
+      "otpSendFail": "錯誤",
+      "defaultErrorKey": "發生了未知錯誤"
     }
   },
   "en": {
@@ -62,7 +64,9 @@
       "fillPhone": "請輸入有效行動電話號碼",
       "phoneUserEmail": "電話號碼/使用者名稱/Email",
       "password": "密碼",
-      "phoneNumber": "手機號碼"
+      "phoneNumber": "手機號碼",
+      "otpSendFail": "shittt!",
+      "defaultErrorKey": "An unknown error occurred"
     }
   },
   "es": {
@@ -95,7 +99,9 @@
       "fillPhone": "請輸入有效行動電話號碼",
       "phoneUserEmail": "電話號碼/使用者名稱/Email",
       "password": "密碼",
-      "phoneNumber": "手機號碼"
+      "phoneNumber": "手機號碼",
+      "otpSendFail": "miérda!",
+      "defaultErrorKey": "Ocurrió un error desconocido"
     }
   }
 }

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
+import { sendOtp } from '../../../api/request/verification'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
@@ -22,15 +23,9 @@ const Form = () => {
   const { isSignIn, isSignUp } = useAuthMode().modeStates
 
   const schema = Joi.object({
-    loginKey: isSignIn 
-      ? Joi.string().required() 
-      : Joi.string().forbidden(),
-    password: isSignIn
-      ? Joi.string().required()
-      : Joi.string().forbidden(),
-    phone: !isSignIn 
-      ? Joi.string().regex(/^09/).length(10).required() 
-      : Joi.string().forbidden()
+    loginKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
+    password: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
+    phone: !isSignIn ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
   })
 
   const {
@@ -57,12 +52,15 @@ const Form = () => {
 
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      console.log('Form data:', data)
-      next()
+      if (!isSignIn) {
+        const response = await sendOtp(data.phone)
+        console.log('Sent Data:', data)
+        console.log('Response Message:', response.message)
+        next({ phone: data.phone })
+      }
     } catch (error) {
-      console.error('Submission Error:', error)
-      setError('root', error)
+      console.error(error.message)
+      setError('root', { message: t(error.i18n) })
     }
   }
 

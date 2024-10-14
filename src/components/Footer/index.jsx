@@ -30,7 +30,7 @@ function Footer() {
         </div>
         {/* 物流合作 */}
         <div className={S.category}>
-          <div className={S.catName}>{t('logitic')}</div>
+          <div className={S.catName}>{t('logistic')}</div>
           <div className={S.images}>
             <img className={S.image} src={sevenElevenPng} />
             <img className={S.image} src={familyMartPng} />

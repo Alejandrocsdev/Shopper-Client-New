@@ -10,17 +10,23 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 // import { useNavigate } from 'react-router-dom'
 
-// 自訂函式
+// 自訂函式 (custom function)
+import { signUp } from '../../../api/request/user'
 import { useAuthStep } from '../../../context/AuthStepContext'
+import { useAuthMode } from '../../../context/AuthModeContext'
 
 // 組件 (component)
+import FormError from '../../SignCard/Form/FormError'
 import Icon from '../../Icon'
 import PasswordInput from '../../../components/SignCard/Form/PasswordInput'
 import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
 function PasswordForm() {
   const { t } = useTranslation()
-  const { next } = useAuthStep()
+  const { userPass, next } = useAuthStep()
+  const { isSignUp, isReset } = useAuthMode().modeStates
+
+  const { phone } = userPass
 
   const schema = Joi.object({
     password: Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
@@ -46,23 +52,32 @@ function PasswordForm() {
 
   const onSubmit = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      console.log('Form data:', data)
-      next()
+      if (isSignUp) {
+        console.log('Sent Data:', data)
+
+        const response = await signUp(phone, data.password)
+        console.log('Response:', response.message)
+
+        const { id } = response.newUser
+
+        next({ id, phone })
+      }
     } catch (error) {
-      console.error('Submission Error:', error)
-      setError('root', error)
+      console.error(error.message)
+      setError('root', { message: t(error.i18n) })
     }
   }
 
   return (
     <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
+      {errors.root && <FormError message={errors.root.message} />}
+
       {/* 表單文字 */}
       <div className={S.cardText}>
         <div className={S.text}>
-          {false ? '最後一步! 請設定您的密碼以完成登入' : '設定一組新密碼給'}
+          {isSignUp ? '最後一步! 請設定您的密碼以完成登入' : '設定一組新密碼給'}
         </div>
-        {true && <div className={S.method}>{true ? 'phone' : 'email'}</div>}
+        {isReset && <div className={S.method}>{phone || 'email'}</div>}
       </div>
 
       {/* 密碼輸入欄 (含條件) */}

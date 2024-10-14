@@ -61,7 +61,7 @@ function SignCard() {
 
         {/* 切換 */}
         <div className={S.switch}>
-          <span className={S.text}>{t(isSignUp ? 'haveAccountQ' : 'newFriendQ')}</span>
+          <span className={S.text}>{t(isSignUp ? 'haveAccount' : 'newToShopper')}</span>
           {/* 返回註冊頁及返回步驟0 */}
           <Anchor style={S.link} int={isSignUp ? '/sign-in' : '/sign-up'}>
             {t(isSignUp ? 'signIn' : 'signUp')}

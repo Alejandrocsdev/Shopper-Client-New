@@ -6,7 +6,7 @@ import Icon from '../../../Icon'
 // 表單錯誤
 const FormError = ({ message }) => {
   return (
-    <div className={S.formError}>
+    <div className={`${S.formError} ${!message ? S.remove : ''}`}>
       <div className={S.crossIcon}>
         <Icon icon="faCircleXmark" />
       </div>
