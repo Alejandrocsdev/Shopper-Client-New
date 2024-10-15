@@ -4,12 +4,12 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-import { useState, useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // import { useNavigate } from 'react-router-dom'
 // 自訂函式 (custom function)
 import { sendOtp, verifyOtp } from '../../../api/request/verification'
-import { getUserByData } from '../../../api/request/user'
+import { findUserByData } from '../../../api/request/user'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 import useCountdown from '../../../hooks/useCountdown'
@@ -21,11 +21,11 @@ import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
 function OtpForm() {
   const { t } = useTranslation()
-  const { userPass, next } = useAuthStep()
+  const { user, next } = useAuthStep()
   const { isSignIn, isSignUp } = useAuthMode().modeStates
   const { count, isCounting, startCountdown } = useCountdown(60, () => {})
 
-  const { phone } = userPass
+  const { phone } = user
 
   const schema = Joi.object({
     otp: Joi.string().length(6).pattern(/^\d+$/).required()
@@ -37,7 +37,8 @@ function OtpForm() {
     formState: { errors, isValid, isSubmitting },
     setValue,
     trigger,
-    setError
+    setError,
+    clearErrors
   } = useForm({
     resolver: joiResolver(schema),
     mode: 'onChange', // 'onSubmit' by default
@@ -51,6 +52,8 @@ function OtpForm() {
 
   const handleResend = async () => {
     try {
+      clearErrors('root')
+      
       const response = await sendOtp(phone)
       console.log('Resend OTP Response:', response.message)
 
@@ -69,13 +72,12 @@ function OtpForm() {
         const otpResponse = await verifyOtp(phone, data.otp)
         console.log('OTP Response:', otpResponse.message)
 
-        const userResponse = await getUserByData(`phone:${phone}`)
+        const userResponse = await findUserByData(`phone:${phone}`)
         console.log('User Response:', userResponse.message)
 
-        const { exist, id, username, avatar } = userResponse.userData
-
-        if (exist) {
-          next({ id, username, avatar, phone })
+        if (userResponse.user) {
+          const { id, username, avatar } = userResponse.user
+          next(4, { id, username, avatar, phone })
         } else {
           next({ phone })
         }

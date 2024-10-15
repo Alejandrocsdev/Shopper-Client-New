@@ -15,7 +15,12 @@ function SignIn() {
     setMode('signIn')
   }, [setMode])
 
-  return <>{step === 0 && <SignCard />}</>
+  return (
+    <>
+      {step === 0 && <SignCard />}
+      {step === 1 && <SignCard isSMS />}
+    </>
+  )
 }
 
 export default SignIn

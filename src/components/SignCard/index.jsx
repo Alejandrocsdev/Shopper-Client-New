@@ -1,48 +1,50 @@
 // 樣式模組 (css module)
 import S from './style.module.css'
 // 函式庫 (library)
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { useAuthStep } from '../../context/AuthStepContext'
 import { useAuthMode } from '../../context/AuthModeContext'
 // 組件 (component)
 import Logo from '../Logo'
-import Anchor from '../Anchor'
 import Form from './Form'
+import Anchor from '../Anchor'
 import ThirdPartySign from './ThirdPartySign'
 
 // 樣板: 密碼登入 / 簡訊登入 / 註冊
-function SignCard() {
+function SignCard({ isSMS }) {
   const { t } = useTranslation()
-  const { next, previous } = useAuthStep()
-  const { modeStates, toggleSMS } = useAuthMode()
-  const { isSMS, isSignIn, isSignUp } = modeStates
+  const { step, next, previous } = useAuthStep()
+  const { modeStates } = useAuthMode()
+  const { isSignIn, isSignUp } = modeStates
 
   return (
     <div className={S.main}>
+      {/* Logo */}
       <Logo style={S.logo} type="cart" shape="square" text unlink />
+
+      {/* Card */}
       <div className={S.card}>
         {/* 標題 */}
         <h1 className={S.cardName}>{t(isSignUp ? 'signUp' : 'signIn')}</h1>
 
         {/* 表單 */}
-        <Form />
+        <Form isSMS={isSMS}/>
 
         {/* 幫助 */}
         <div className={S.help}>
           <Anchor style={S.link} int="/reset">
             {t(isSignIn ? 'forgotPwd' : '')}
           </Anchor>
-          {!isSignUp && (
-            <div className={S.link} onClick={toggleSMS}>
+          {isSignIn && (
+            <div className={S.link} onClick={isSMS ? () => previous() : () => next()}>
               {t(isSMS ? 'pwdSignIn' : 'smsSignIn')}
             </div>
           )}
         </div>
 
         {/* 分隔線 */}
-        <div className={`${S.breakLine} ${isSignUp ? '' : S.adjust}`}>
+        <div className={`${S.breakLine} ${isSignUp ? S.adjust : ''}`}>
           <div className={S.line}></div>
           <div className={S.or}>{t('or')}</div>
           <div className={S.line}></div>

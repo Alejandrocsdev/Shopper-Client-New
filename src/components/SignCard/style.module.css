@@ -40,7 +40,7 @@
 /* 分隔線 */
 .breakLine {
   display: flex;
-  margin: 25px 0;
+  margin: 10px 0;
 }
 
 .breakLine .line {
@@ -57,7 +57,7 @@
 }
 
 .adjust {
-  margin: 10px 0;
+  margin: 25px 0;
 }
 
 /* 條款與政策 */

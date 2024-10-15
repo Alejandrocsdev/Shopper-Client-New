@@ -17,13 +17,13 @@ import SubmitButton from './SubmitButton'
 import PasswordInput from './PasswordInput'
 
 // 表單: 密碼登入 / 簡訊登入 / 註冊
-const Form = () => {
+const Form = ({ isSMS }) => {
   const { t } = useTranslation()
-  const { next, previous } = useAuthStep()
+  const { next } = useAuthStep()
   const { isSignIn, isSignUp } = useAuthMode().modeStates
 
   const schema = Joi.object({
-    loginKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
+    signInKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
     password: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
     phone: !isSignIn ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
   })
@@ -53,9 +53,9 @@ const Form = () => {
   const onSubmit = async (data) => {
     try {
       if (!isSignIn) {
-        const response = await sendOtp(data.phone)
         console.log('Sent Data:', data)
-        console.log('Response Message:', response.message)
+        const response = await sendOtp(data.phone)
+        console.log('Response:', response.message)
         next({ phone: data.phone })
       }
     } catch (error) {
@@ -68,25 +68,25 @@ const Form = () => {
     <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
       {errors.root && <FormError message={errors.root.message} />}
 
-      {/* loginKey */}
-      {isSignIn && (
+      {/* signInKey */}
+      {isSignIn && !isSMS && (
         <div className={S.inputContainer}>
           <input
-            className={`${S.input} ${errors.loginKey ? S.inputWarning : ''}`}
+            className={`${S.input} ${errors.signInKey ? S.inputWarning : ''}`}
             type="text"
             placeholder={t('phoneUserEmail')}
-            {...register('loginKey')}
+            {...register('signInKey')}
           />
         </div>
       )}
       {/* 錯誤訊息 */}
-      {isSignIn && <div className={S.textWarning}>{errors.loginKey ? t('fillInput') : ''}</div>}
+      {isSignIn && !isSMS && <div className={S.textWarning}>{errors.signInKey ? t('fillInput') : ''}</div>}
 
       {/* password */}
-      {isSignIn && <PasswordInput register={register} name="password" errors={errors} />}
+      {isSignIn && !isSMS && <PasswordInput register={register} name="password" errors={errors} />}
 
       {/* phone */}
-      {!isSignIn && <PhoneInput check={isValid} register={register} name="phone" errors={errors} />}
+      {(isSignUp || isSMS) && <PhoneInput check={isValid} register={register} name="phone" errors={errors} />}
 
       <SubmitButton isValid={isValid} isSubmitting={isSubmitting}>
         {t(isSignIn ? 'signIn' : 'next')}

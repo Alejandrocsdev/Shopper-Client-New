@@ -7,12 +7,7 @@ export const getUserById = axiosError(async (userId) => {
   return response.data
 })
 
-export const getUserByData = axiosError(async (userInfo) => {
-  const response = await axiosPublic.get(`${base}/check/${userInfo}`)
-  return response.data
-})
-
-export const signUp = axiosError(async (phone, password) => {
-  const response = await axiosPublic.post(`${base}/sign-up`, { phone, password })
+export const findUserByData = axiosError(async (userInfo) => {
+  const response = await axiosPublic.get(`${base}/find/${userInfo}`)
   return response.data
 })

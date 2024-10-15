@@ -3,30 +3,22 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthModeContext = createContext()
 
-// (1)
+// (1) Provider
 export const AuthModeProvider = ({ children }) => {
   const [mode, setMode] = useState(null)
-  const [isSMS, setIsSMS] = useState(false)
-
-  const toggleSMS = () => setIsSMS(!isSMS)
-
-  useEffect(() => {
-    setIsSMS(false)
-  }, [mode])
 
   const modeStates = {
-    isSMS,
-    isSignIn: isSMS ? false : mode === 'signIn',
-    isSignUp: isSMS ? false : mode === 'signUp',
-    isReset: isSMS ? false : mode === 'reset'
+    isSignIn: mode === 'signIn',
+    isSignUp: mode === 'signUp',
+    isReset: mode === 'reset'
   }
 
   return (
-    <AuthModeContext.Provider value={{ mode, setMode, modeStates, toggleSMS }}>
+    <AuthModeContext.Provider value={{ mode, setMode, modeStates }}>
       {children}
     </AuthModeContext.Provider>
   )
 }
 
-// (2)
+// (2) Hook
 export const useAuthMode = () => useContext(AuthModeContext)

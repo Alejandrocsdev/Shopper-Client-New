@@ -5,16 +5,11 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-// import axios from '../../../api/axios'
-// import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-// import { useNavigate } from 'react-router-dom'
-
 // 自訂函式 (custom function)
-import { signUp } from '../../../api/request/user'
+import { signUp } from '../../../api/request/auth'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
-
 // 組件 (component)
 import FormError from '../../SignCard/Form/FormError'
 import Icon from '../../Icon'
@@ -23,10 +18,10 @@ import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
 function PasswordForm() {
   const { t } = useTranslation()
-  const { userPass, next } = useAuthStep()
+  const { user, next } = useAuthStep()
   const { isSignUp, isReset } = useAuthMode().modeStates
 
-  const { phone } = userPass
+  const { phone } = user
 
   const schema = Joi.object({
     password: Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
@@ -58,7 +53,7 @@ function PasswordForm() {
         const response = await signUp(phone, data.password)
         console.log('Response:', response.message)
 
-        const { id } = response.newUser
+        const { id } = response.user
 
         next({ id, phone })
       }

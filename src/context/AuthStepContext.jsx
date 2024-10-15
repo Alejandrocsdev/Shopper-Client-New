@@ -4,26 +4,35 @@ import { useLocation } from 'react-router-dom'
 
 const AuthStepContext = createContext()
 
-// (1)
+// (1) Provider
 export const AuthStepProvider = ({ children }) => {
   const [step, setStep] = useState(0)
-  const [userPass, setUserPass] = useState({})
+  const [user, setUser] = useState({})
   const location = useLocation()
-  const next = (userPass) => {
-    setUserPass(userPass)
-    setStep((prevStep) => prevStep + 1)
+
+  const next = (step, user) => {
+    const stepT = typeof step
+    const userT = typeof user
+    stepT === 'number' ? setStep(step) : setStep((prevStep) => prevStep + 1)
+    if (stepT === 'object' || userT === 'object') {
+      setUser(user || step)
+    } else {
+      setUser({})
+    }
   }
+
   const previous = () => setStep((prevStep) => prevStep - 1)
+
   useEffect(() => {
     setStep(0)
   }, [location.pathname])
 
   return (
-    <AuthStepContext.Provider value={{ userPass, step, setStep, next, previous }}>
+    <AuthStepContext.Provider value={{ user, step, next, previous }}>
       {children}
     </AuthStepContext.Provider>
   )
 }
 
-// (2)
+// (2) Hook
 export const useAuthStep = () => useContext(AuthStepContext)
