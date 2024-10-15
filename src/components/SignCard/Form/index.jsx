@@ -1,6 +1,7 @@
 // 模組樣式
 import S from './style.module.css'
 // 函式庫 (library)
+import { useNavigate } from 'react-router-dom'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
@@ -8,6 +9,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { sendOtp } from '../../../api/request/verification'
+import { pwdSignIn } from '../../../api/request/auth'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
@@ -21,6 +23,9 @@ const Form = ({ isSMS }) => {
   const { t } = useTranslation()
   const { next } = useAuthStep()
   const { isSignIn, isSignUp } = useAuthMode().modeStates
+
+  // 導向
+  const navigate = useNavigate()
 
   const schema = Joi.object({
     signInKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
@@ -52,11 +57,17 @@ const Form = ({ isSMS }) => {
 
   const onSubmit = async (data) => {
     try {
-      if (!isSignIn) {
+      if (isSignUp) {
         console.log('Sent Data:', data)
         const response = await sendOtp(data.phone)
         console.log('Response:', response.message)
         next({ phone: data.phone })
+      } else if (isSignIn) {
+        console.log('Sent Data:', data)
+        const response = await pwdSignIn(data.signInKey, data.password)
+        console.log('Response:', response.message)
+        console.log('Access Token', response.accessToken)
+        navigate('/')
       }
     } catch (error) {
       console.error(error.message)
@@ -80,13 +91,17 @@ const Form = ({ isSMS }) => {
         </div>
       )}
       {/* 錯誤訊息 */}
-      {isSignIn && !isSMS && <div className={S.textWarning}>{errors.signInKey ? t('fillInput') : ''}</div>}
+      {isSignIn && !isSMS && (
+        <div className={S.textWarning}>{errors.signInKey ? t('fillInput') : ''}</div>
+      )}
 
       {/* password */}
       {isSignIn && !isSMS && <PasswordInput register={register} name="password" errors={errors} />}
 
       {/* phone */}
-      {(isSignUp || isSMS) && <PhoneInput check={isValid} register={register} name="phone" errors={errors} />}
+      {(isSignUp || isSMS) && (
+        <PhoneInput check={isValid} register={register} name="phone" errors={errors} />
+      )}
 
       <SubmitButton isValid={isValid} isSubmitting={isSubmitting}>
         {t(isSignIn ? 'signIn' : 'next')}

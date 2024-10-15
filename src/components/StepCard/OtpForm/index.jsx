@@ -95,7 +95,7 @@ function OtpForm() {
       {/* 表單文字 */}
       <div className={S.cardText}>
         <div className={S.text}>您的驗證碼已透過簡訊傳送至</div>
-        <div className={S.phone}>0938473300</div>
+        <div className={S.phone}>{phone}</div>
       </div>
 
       {/* OTP輸入框 */}

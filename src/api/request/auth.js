@@ -7,6 +7,11 @@ export const autoSignIn = axiosError(async (userId) => {
   return response.data
 })
 
+export const pwdSignIn = axiosError(async (signInKey, password) => {
+  const response = await axiosPrivate.post(`${base}/sign-in/pwd`, { signInKey, password })
+  return response.data
+})
+
 export const signUp = axiosError(async (phone, password) => {
   const response = await axiosPublic.post(`${base}/sign-up`, { phone, password })
   return response.data
