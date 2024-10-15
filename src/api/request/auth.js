@@ -1,9 +1,9 @@
-import { axiosPublic } from '../axios'
+import { axiosPublic, axiosPrivate } from '../axios'
 import axiosError from '../axiosError'
 const base = '/auth'
 
 export const autoSignIn = axiosError(async (userId) => {
-  const response = await axiosPublic.post(`${base}/sign-in/auto/${userId}`)
+  const response = await axiosPrivate.post(`${base}/sign-in/auto/${userId}`)
   return response.data
 })
 
