@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { signUp } from '../../../api/request/auth'
+import { findUserByInfo, putPwdByInfo } from '../../../api/request/user'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
@@ -20,7 +21,7 @@ function PasswordForm() {
   const { user, next } = useAuthStep()
   const { isSignUp, isReset } = useAuthMode().modeStates
 
-  const { phone } = user
+  const { phone, email } = user
 
   const schema = Joi.object({
     password: Joi.string().min(8).max(16).regex(/[a-z]/).regex(/[A-Z]/).regex(/\d/).required()
@@ -53,6 +54,10 @@ function PasswordForm() {
 
         const { id } = response.user
         next({ id, phone })
+      } else if (isReset && phone) {
+        const response = await putPwdByInfo(`phone:${phone}`, password)
+        console.log('Change Password Response:', response.message)
+        next(4)
       }
     } catch (error) {
       console.error(error.message)

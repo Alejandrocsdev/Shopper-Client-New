@@ -18,7 +18,7 @@ function Step1({ name, back }) {
   const { next } = useAuthStep()
 
   const schema = Joi.object({
-    emailOrPhone: Joi.string()
+    resetKey: Joi.string()
       .required()
       .when(Joi.string().pattern(/^\d+$/), {
         then: Joi.string().regex(/^09/).length(10).required(),
@@ -36,27 +36,37 @@ function Step1({ name, back }) {
     getValues
   } = useForm({
     resolver: joiResolver(schema),
-    mode: 'onChange', // 'onSubmit' by default // onSubmit | onBlur | onChange | onTouched | all
-    reValidateMode: 'onChange', // 'onChange' by default // onChange | onBlur | onSubmit = 'onChange'
-    shouldFocusError: false // true by default
+    mode: 'onChange',
+    shouldFocusError: false
   })
 
-  const isPhone = /^\d+$/.test(getValues('emailOrPhone'))
-
-  console.log('VALID', isValid)
-  console.log('errors', errors)
+  const isPhone = /^\d+$/.test(getValues('resetKey'))
 
   const onSubmit = async (data) => {
     try {
+      const { resetKey } = data
+      console.log('Sent Data:', data)
+      
       if (isPhone) {
-        console.log('Sent Data:', data)
-        const response = await sendOtp(data.emailOrPhone)
+        const response = await sendOtp(resetKey)
         console.log('Response:', response.message)
-        next({ phone: data.emailOrPhone })
+        next({ phone: resetKey })
+      } else {
+        next({ email: resetKey })
       }
     } catch (error) {
       console.error(error.message)
       setError('root', { message: t(error.i18n) })
+    }
+  }
+
+  const errMsg = () => {
+    if (errors.resetKey && isPhone) {
+      return t('phone')
+    } else if (errors.resetKey && !isPhone) {
+      return t('email')
+    } else {
+      return ''
     }
   }
 
@@ -71,17 +81,11 @@ function Step1({ name, back }) {
             className={`${S.signInKeyInput} ${errors.signInKey ? S.inputWarning : ''}`}
             type="text"
             placeholder={t('phoneOrEmail')}
-            {...register('emailOrPhone')}
+            {...register('resetKey')}
           />
         </div>
         {/* 錯誤訊息 */}
-        <div className={S.textWarning}>
-          {errors.emailOrPhone && isPhone
-            ? t('phone')
-            : errors.emailOrPhone && !isPhone
-            ? t('email')
-            : ''}
-        </div>
+        <div className={S.textWarning}>{errMsg()}</div>
 
         <SubmitButton style={S.submit} isValid={isValid} isSubmitting={isSubmitting}>
           {t('next')}

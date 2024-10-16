@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 // 自訂函式 (custom function)
 import { sendOtp, verifyOtp } from '../../../api/request/verification'
-import { findUserByData } from '../../../api/request/user'
+import { findUserByInfo } from '../../../api/request/user'
 import { smsSignIn } from '../../../api/request/auth'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
@@ -72,7 +72,7 @@ function OtpForm({ isSms }) {
       if (isSignUp) {
         const [otpResponse, userResponse] = await Promise.all([
           verifyOtp(phone, otp),
-          findUserByData(`phone:${phone}`)
+          findUserByInfo(`phone:${phone}`)
         ])
         console.log('Verify OTP Response:', otpResponse.message)
         console.log('Find User Response:', userResponse.message)

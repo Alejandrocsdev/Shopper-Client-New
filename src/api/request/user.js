@@ -7,7 +7,12 @@ export const getUserById = axiosError(async (userId) => {
   return response.data
 })
 
-export const findUserByData = axiosError(async (userInfo) => {
+export const findUserByInfo = axiosError(async (userInfo) => {
   const response = await axiosPublic.get(`${base}/find/${userInfo}`)
+  return response.data
+})
+
+export const putPwdByInfo = axiosError(async (userInfo, password) => {
+  const response = await axiosPublic.put(`${base}/pwd/${userInfo}`, { password })
   return response.data
 })
