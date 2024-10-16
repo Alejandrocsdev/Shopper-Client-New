@@ -1,22 +1,23 @@
 // 模組樣式
 import S from './style.module.css'
 // 函式庫 (library)
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+
+import { useEffect } from 'react'
 // 自訂函式
-import useCountdown from '../../../hooks/useCountdown'
 import { autoSignIn } from '../../../api/request/auth'
+
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
+
+import useCountdown from '../../../hooks/useCountdown'
 // 組件
 import Icon from '../../Icon'
 
 // 成功頁面: 註冊 / 重設密碼
 function Success() {
-  const navigate = useNavigate()
   const { t } = useTranslation()
-  const { user } = useAuthStep()
+  const { user, to } = useAuthStep()
   const { isSignUp, isReset } = useAuthMode().modeStates
 
   const { id, phone } = user
@@ -26,13 +27,15 @@ function Success() {
       try {
         const response = await autoSignIn(id)
         console.log('Auto Sign In Response:', response.message)
+
         console.log('Access Token:', response.accessToken)
-        navigate('/')
+
+        to('/')
       } catch (err) {
         console.error(err.message)
       }
     } else if (isReset) {
-      navigate('/sign-in')
+      to('/sign-in')
     }
   }
 

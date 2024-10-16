@@ -4,32 +4,38 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+
 import { useTranslation } from 'react-i18next'
+
+import { useEffect } from 'react'
 // 自訂函式 (custom function)
-import { sendOtp } from '../../../api/request/verification'
+import { sendOtp } from '../../../api/request/verif'
 import { pwdSignIn } from '../../../api/request/auth'
+
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
-import FormError from './FormError'
+import FormError from '../../FormError'
 import PhoneInput from './PhoneInput'
-import SubmitButton from './SubmitButton'
-import PasswordInput from './PasswordInput'
+import SubmitButton from '../../SubmitButton'
+import PasswordInput from '../../PasswordInput'
 
 // 表單: 密碼登入 / 簡訊登入 / 註冊
-const Form = ({ isSms }) => {
-  const navigate = useNavigate()
+const SignForm = () => {
   const { t } = useTranslation()
-  const { next } = useAuthStep()
-  const { isSignIn, isSignUp } = useAuthMode().modeStates
+  const { to } = useAuthStep()
+  const { isSignUp, isSignIn,isPwdSignIn, isSmsSignIn } = useAuthMode().modeStates
 
   const schema = Joi.object({
-    signInKey: isSignIn && !isSms ? Joi.string().required() : Joi.string().forbidden(),
-    password: isSignIn && !isSms ? Joi.string().required() : Joi.string().forbidden(),
-    phone:
-      isSignUp || isSms ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
+    signInKey: isPwdSignIn 
+      ? Joi.string().required() 
+      : Joi.string().forbidden(),
+    password: isPwdSignIn 
+      ? Joi.string().required() 
+      : Joi.string().forbidden(),
+    phone: isSignUp || isSmsSignIn
+      ? Joi.string().regex(/^09/).length(10).required()
+      : Joi.string().forbidden()
   })
 
   const {
@@ -46,22 +52,24 @@ const Form = ({ isSms }) => {
 
   useEffect(() => {
     reset()
-  }, [isSignIn, isSignUp, isSms])
+  }, [isSignUp, isPwdSignIn, isSmsSignIn])
 
   const onSubmit = async (data) => {
     try {
-      const { phone, signInKey, password } = data
+      const { signInKey, password, phone } = data
       console.log('Sent Data:', data)
 
-      if (isSignUp || isSms) {
+      if (isSignUp || isSmsSignIn) {
         const response = await sendOtp(phone)
         console.log('Send OTP Response:', response.message)
-        next({ phone })
-      } else if (isSignIn && !isSms) {
+        to('+', { phone })
+      } else if (isPwdSignIn) {
         const response = await pwdSignIn(signInKey, password)
         console.log('Password Sign In Response:', response.message)
+
         console.log('Access Token', response.accessToken)
-        navigate('/')
+
+        to('/')
       }
     } catch (error) {
       console.error(error.message)
@@ -74,7 +82,7 @@ const Form = ({ isSms }) => {
       {errors.root && <FormError message={errors.root.message} />}
 
       {/* signInKey */}
-      {isSignIn && !isSms && (
+      {isPwdSignIn && (
         <div className={S.inputContainer}>
           <input
             className={`${S.input} ${errors.signInKey ? S.inputWarning : ''}`}
@@ -85,15 +93,15 @@ const Form = ({ isSms }) => {
         </div>
       )}
       {/* 錯誤訊息 */}
-      {isSignIn && !isSms && (
+      {isPwdSignIn && (
         <div className={S.textWarning}>{errors.signInKey ? t('fillInput') : ''}</div>
       )}
 
       {/* password */}
-      {isSignIn && !isSms && <PasswordInput register={register} name="password" errors={errors} />}
+      {isPwdSignIn && <PasswordInput register={register} name="password" errors={errors} />}
 
       {/* phone */}
-      {(isSignUp || isSms) && (
+      {(isSignUp || isSmsSignIn) && (
         <PhoneInput check={isValid} register={register} name="phone" errors={errors} />
       )}
 
@@ -104,4 +112,4 @@ const Form = ({ isSms }) => {
   )
 }
 
-export default Form
+export default SignForm

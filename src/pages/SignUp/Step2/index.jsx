@@ -2,9 +2,9 @@
 import StepCard from '../../../components/StepCard'
 import PasswordForm from '../../../components/StepCard/PasswordForm'
 
-function Step2({ name }) {
+function Step2() {
   return (
-    <StepCard name={name} steps>
+    <StepCard title="設定您的密碼" steps>
       <PasswordForm />
     </StepCard>
   )

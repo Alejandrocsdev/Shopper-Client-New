@@ -2,9 +2,9 @@
 import StepCard from '../../../components/StepCard'
 import OtpForm from '../../../components/StepCard/OtpForm'
 
-function Step1({ name, back }) {
+function Step1() {
   return (
-    <StepCard back={back} steps name={name}>
+    <StepCard title="輸入驗證碼" back steps>
       <OtpForm />
     </StepCard>
   )

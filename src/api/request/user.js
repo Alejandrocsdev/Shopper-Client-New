@@ -1,18 +1,16 @@
-import { axiosPublic } from '../axios'
-import axiosError from '../axiosError'
+import axiosRequest from '../axios'
+
 const base = '/user'
 
-export const getUserById = axiosError(async (userId) => {
-  const response = await axiosPublic.get(`${base}/${userId}`)
-  return response.data
-})
+// Private Requests
 
-export const findUserByInfo = axiosError(async (userInfo) => {
-  const response = await axiosPublic.get(`${base}/find/${userInfo}`)
-  return response.data
-})
-
-export const putPwdByInfo = axiosError(async (userInfo, password) => {
-  const response = await axiosPublic.put(`${base}/pwd/${userInfo}`, { password })
-  return response.data
-})
+// Public Requests
+export const getUserById = (userId) => {
+  return axiosRequest(false, 'get', `${base}/${userId}`)
+}
+export const findUserByInfo = (userInfo) => {
+  return axiosRequest(false, 'get', `${base}/find/${userInfo}`)
+}
+export const putPwdByInfo = (userInfo, password) => {
+  return axiosRequest(false, 'put', `${base}/pwd/${userInfo}`, { password })
+}

@@ -1,23 +1,19 @@
-import { axiosPublic, axiosPrivate } from '../axios'
-import axiosError from '../axiosError'
+import axiosRequest from '../axios'
+
 const base = '/auth'
 
-export const autoSignIn = axiosError(async (userId) => {
-  const response = await axiosPrivate.post(`${base}/sign-in/auto/${userId}`)
-  return response.data
-})
+// Private Requests
+export const autoSignIn = (userId) => {
+  return axiosRequest(true, 'post', `${base}/sign-in/auto/${userId}`)
+}
+export const pwdSignIn = (signInKey, password) => {
+  return axiosRequest(true, 'post', `${base}/sign-in/pwd`, { signInKey, password })
+}
+export const smsSignIn = (phone, otp) => {
+  return axiosRequest(true, 'post', `${base}/sign-in/sms`, { phone, otp })
+}
 
-export const pwdSignIn = axiosError(async (signInKey, password) => {
-  const response = await axiosPrivate.post(`${base}/sign-in/pwd`, { signInKey, password })
-  return response.data
-})
-
-export const smsSignIn = axiosError(async (phone, otp) => {
-  const response = await axiosPrivate.post(`${base}/sign-in/sms`, { phone, otp })
-  return response.data
-})
-
-export const signUp = axiosError(async (phone, password) => {
-  const response = await axiosPublic.post(`${base}/sign-up`, { phone, password })
-  return response.data
-})
+// Public Requests
+export const signUp = (phone, password) => {
+  return axiosRequest(false, 'post', `${base}/sign-in/sms`, { phone, password })
+}

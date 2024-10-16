@@ -8,19 +8,16 @@ import { useAuthStep } from '../../context/AuthStepContext'
 import { useAuthMode } from '../../context/AuthModeContext'
 // 組件 (component)
 import Logo from '../Logo'
-import Form from './Form'
 import Anchor from '../Anchor'
+import SignForm from './SignForm'
 import ThirdPartySign from './ThirdPartySign'
 
-// 樣板: 密碼登入 / 簡訊登入 / 註冊
+// 表單樣板: 密碼登入樣板 / 簡訊登入樣板 / 註冊樣板
 function SignCard() {
   const { t } = useTranslation()
-  const { step, next, previous } = useAuthStep()
-  const { modeStates } = useAuthMode()
-  const { isSignIn, isSignUp } = modeStates
-
-  const [isSms, setIsSms] = useState(false)
-  const toggleSmsSignIn = () => setIsSms(!isSms)
+  const { step, to } = useAuthStep()
+  const { modeStates, toggleSmsSignIn } = useAuthMode()
+  const { isSignUp, isSignIn, isPwdSignIn, isSmsSignIn } = modeStates
 
   return (
     <div className={S.main}>
@@ -33,7 +30,7 @@ function SignCard() {
         <h1 className={S.cardName}>{t(isSignUp ? 'signUp' : 'signIn')}</h1>
 
         {/* 表單 */}
-        <Form isSms={isSms} />
+        <SignForm />
 
         {/* 幫助 */}
         <div className={S.help}>
@@ -42,7 +39,7 @@ function SignCard() {
           </Anchor>
           {isSignIn && (
             <div className={S.link} onClick={toggleSmsSignIn}>
-              {t(isSms ? 'pwdSignIn' : 'smsSignIn')}
+              {t(isPwdSignIn ? 'smsSignIn' : 'pwdSignIn')}
             </div>
           )}
         </div>

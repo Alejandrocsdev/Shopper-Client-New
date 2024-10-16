@@ -4,7 +4,7 @@ import S from './style.module.css'
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 // 組件 (component)
-import Icon from '../../../Icon'
+import Icon from '../Icon'
 
 // 密碼輸入欄
 const PasswordInput = ({ register, name, criteria, password = '', isDirty, errors = false }) => {

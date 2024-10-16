@@ -17,15 +17,20 @@ function SignUp() {
 
   useEffect(() => {
     setMode('signUp')
-  }, [setMode])
+  }, [])
 
   return (
     <>
+      {/* 註冊頁面 */}
       {step === 0 && <SignCard />}
-      {step === 1 && <Step1 back={true} name="輸入驗證碼" />}
-      {step === 2 && <Step2 name="設定您的密碼" />}
-      {step === 3 && <Step3 name="註冊成功!" />}
-      {step === 4 && <Step4 name="這是您的帳號嗎?" />}
+      {/* OtpForm */}
+      {step === 1 && <Step1 />}
+      {/* PasswordForm */}
+      {step === 2 && <Step2 />}
+      {/* Success */}
+      {step === 3 && <Step3  />}
+      {/* 獨立: 已註冊過 */}
+      {step === 4 && <Step4  />}
     </>
   )
 }

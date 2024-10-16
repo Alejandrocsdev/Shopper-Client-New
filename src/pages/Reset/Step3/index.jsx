@@ -1,11 +1,11 @@
 // 組件 (component)
 import StepCard from '../../../components/StepCard'
-import PasswordForm from '../../../components/StepCard/PasswordForm'
+import Success from '../../../components/StepCard/Success'
 
-function Step3({ name }) {
+function Step3() {
   return (
-    <StepCard name={name} steps>
-      <PasswordForm />
+    <StepCard title="重設密碼成功">
+      <Success />
     </StepCard>
   )
 }

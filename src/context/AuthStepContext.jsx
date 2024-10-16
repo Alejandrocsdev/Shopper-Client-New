@@ -1,6 +1,8 @@
 // 函式庫 (library)
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+// 自訂函式 (custom function)
+import useLangNavigate from '../hooks/useLangNavigate'
 
 const AuthStepContext = createContext()
 
@@ -9,21 +11,25 @@ export const AuthStepProvider = ({ children }) => {
   const [step, setStep] = useState(0)
   const [user, setUser] = useState({})
   const location = useLocation()
-  const navigate = useNavigate()
+  const navigate = useLangNavigate()
 
-  const next = (step, user) => {
-    const stepT = typeof step
-    const userT = typeof user
-    stepT === 'number' ? setStep(step) : setStep((prevStep) => prevStep + 1)
-    if (stepT === 'object' || userT === 'object') {
-      setUser(user || step)
-    } else {
-      setUser({})
+  const to = (step, user = {}) => {
+    if (Number.isInteger(step)) {
+      setStep(step)
+    } 
+    else if (step === '+') {
+      setStep((prevStep) => prevStep + 1)
+    } 
+    else if (step === '-') {
+      setStep((prevStep) => prevStep - 1)
+    } 
+    else if (step.startsWith('/')) {
+      navigate(step)
     }
-  }
-
-  const previous = (path) => {
-    typeof path === 'string' ? navigate(path) : setStep((prevStep) => prevStep - 1)
+  
+    if (typeof user === 'object' && Object.keys(user).length > 0) {
+      setUser(user)
+    }
   }
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export const AuthStepProvider = ({ children }) => {
   }, [location.pathname])
 
   return (
-    <AuthStepContext.Provider value={{ user, step, next, previous }}>
+    <AuthStepContext.Provider value={{ step, user, to }}>
       {children}
     </AuthStepContext.Provider>
   )

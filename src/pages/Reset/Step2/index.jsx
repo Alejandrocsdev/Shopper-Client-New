@@ -1,11 +1,11 @@
 // 組件 (component)
 import StepCard from '../../../components/StepCard'
-import OtpForm from '../../../components/StepCard/OtpForm'
+import PasswordForm from '../../../components/StepCard/PasswordForm'
 
-function Step2({ name, back }) {
+function Step2() {
   return (
-    <StepCard back={back} steps name={name}>
-      <OtpForm />
+    <StepCard title="設定您的密碼">
+      <PasswordForm />
     </StepCard>
   )
 }

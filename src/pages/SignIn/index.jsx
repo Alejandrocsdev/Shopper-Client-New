@@ -14,12 +14,14 @@ function SignIn() {
 
   useEffect(() => {
     setMode('signIn')
-  }, [setMode])
+  }, [])
 
   return (
     <>
+      {/* 密碼登入頁面 || 簡訊登入頁面 */}
       {step === 0 && <SignCard />}
-      {step === 1 && <Step1 back={true} name="輸入驗證碼" />}
+      {/* OtpForm */}
+      {step === 1 && <Step1 />}
     </>
   )
 }

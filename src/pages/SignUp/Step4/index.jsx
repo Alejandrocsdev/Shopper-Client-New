@@ -1,18 +1,18 @@
 // 模組樣式
 import S from './style.module.css'
 // 函式庫 (libraryu)
-import { useNavigate } from 'react-router-dom'
+
 // 自訂函式 (custom function)
 import { autoSignIn } from '../../../api/request/auth'
+
 import { useAuthStep } from '../../../context/AuthStepContext'
 // 組件 (component)
 import StepCard from '../../../components/StepCard'
 // 圖檔
 import avatarPng from '../../../assets/img/avatar/avatar.png'
 
-function Step4({ name }) {
-  const navigate = useNavigate()
-  const { user, next } = useAuthStep()
+function Step4() {
+  const { user, to } = useAuthStep()
   const { id, username, avatar, phone } = user
 
   // 處理表單提交事件
@@ -20,15 +20,17 @@ function Step4({ name }) {
     try {
       const response = await autoSignIn(id)
       console.log('Response:', response.message)
+
       console.log('Access Token:', response.accessToken)
-      navigate('/')
+
+      to('/')
     } catch (err) {
       console.error(err.message)
     }
   }
 
   return (
-    <StepCard name={name}>
+    <StepCard title="這是您的帳號嗎?">
       <div className={S.avatarContainer}>
         <img className={S.avatar} src={avatar || avatarPng} />
       </div>
@@ -40,7 +42,7 @@ function Step4({ name }) {
         是，前往登入
       </div>
       {/* 返回註冊 */}
-      <div className={S.back} onClick={() => next(0)}>
+      <div className={S.back} onClick={() => to(0)}>
         否，返回註冊頁面
       </div>
     </StepCard>

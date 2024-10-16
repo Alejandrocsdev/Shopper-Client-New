@@ -1,7 +1,7 @@
 // 模組樣式 (module css)
 import S from './style.module.css'
 // 組件 (component)
-import Loading from '../../../Laoding'
+import Loading from '../Laoding'
 
 // 提交按鈕
 const SubmitButton = ({ style, type = 'submit', isValid, isSubmitting, children }) => {

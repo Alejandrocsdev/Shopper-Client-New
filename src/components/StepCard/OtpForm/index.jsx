@@ -4,27 +4,29 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
+
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+
+import { useEffect } from 'react'
 // 自訂函式 (custom function)
-import { sendOtp, verifyOtp } from '../../../api/request/verification'
+import { sendOtp, verifyOtp } from '../../../api/request/verif'
 import { findUserByInfo } from '../../../api/request/user'
 import { smsSignIn } from '../../../api/request/auth'
+
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
+
 import useCountdown from '../../../hooks/useCountdown'
 // 組件 (component)
-import FormError from '../../SignCard/Form/FormError'
+import FormError from '../../FormError'
 import Countdown from './Countdown'
 import OtpInput from './OtpInput'
-import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
+import SubmitButton from '../../SubmitButton'
 
-function OtpForm({ isSms }) {
-  const navigate = useNavigate()
+function OtpForm() {
   const { t } = useTranslation()
-  const { user, next } = useAuthStep()
-  const { isSignIn, isSignUp, isReset } = useAuthMode().modeStates
+  const { user, to } = useAuthStep()
+  const { isSmsSignIn, isSignUp, isReset } = useAuthMode().modeStates
   const { count, isCounting, startCountdown } = useCountdown(60)
 
   const { phone } = user
@@ -79,19 +81,21 @@ function OtpForm({ isSms }) {
 
         if (userResponse.user) {
           const { id, username, avatar } = userResponse.user
-          next(4, { id, username, avatar, phone })
+          to(4, { id, username, avatar, phone })
         } else {
-          next({ phone })
+          to('+',{ phone })
         }
-      } else if (isSms) {
+      } else if (isSmsSignIn) {
         const response = await smsSignIn(phone, otp)
         console.log('SMS Sign In Response:', response.message)
+
         console.log('Access Token', response.accessToken)
-        navigate('/')
+
+        to('/')
       } else if (isReset) {
         const response = await verifyOtp(phone, otp)
         console.log('Verify OTP Response:', response.message)
-        next({ phone })
+        to('+',{ phone })
       }
     } catch (error) {
       console.error(error.message)
@@ -113,7 +117,6 @@ function OtpForm({ isSms }) {
       <OtpInput register={register} name="otp" setValue={setValue} />
 
       {/* OTP發送倒數 & 重新傳送 */}
-      {/* <Countdown /> */}
       <div className={isCounting ? S.countdown : S.resend}>
         <span>{isCounting ? count : '沒有收到驗證碼嗎？'}</span>
         <span onClick={isCounting ? undefined : handleResend}>

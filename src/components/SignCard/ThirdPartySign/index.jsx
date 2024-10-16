@@ -4,15 +4,18 @@ import S from './style.module.css'
 import facebookPng from '../../../assets/img/thirdParty/facebook.png'
 import googlePng from '../../../assets/img/thirdParty/google.png'
 
+import { useNavigate } from 'react-router-dom'
+
 // 第三方 登入 / 註冊
 const ThirdPartySign = () => {
+  const navigate = useNavigate()
   return (
     <div className={S.thirdParty}>
       <button className={S.button}>
         <img className={S.logo} src={facebookPng} />
         <div className={S.text}>Facebook</div>
       </button>
-      <button className={S.button}>
+      <button className={S.button} onClick={() => navigate('/zh/sign-in')}>
         <img className={S.logo} src={googlePng} />
         <div className={S.text}>Google</div>
       </button>

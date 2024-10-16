@@ -4,21 +4,23 @@ import S from './style.module.css'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
+
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { signUp } from '../../../api/request/auth'
 import { findUserByInfo, putPwdByInfo } from '../../../api/request/user'
+
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 // 組件 (component)
-import FormError from '../../SignCard/Form/FormError'
+import FormError from '../../FormError'
 import Icon from '../../Icon'
-import PasswordInput from '../../../components/SignCard/Form/PasswordInput'
-import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
+import PasswordInput from '../../PasswordInput'
+import SubmitButton from '../../SubmitButton'
 
 function PasswordForm() {
   const { t } = useTranslation()
-  const { user, next } = useAuthStep()
+  const { user, to } = useAuthStep()
   const { isSignUp, isReset } = useAuthMode().modeStates
 
   const { phone, email } = user
@@ -48,16 +50,17 @@ function PasswordForm() {
     try {
       const { password } = data
       console.log('Sent Data:', data)
+      
       if (isSignUp) {
         const response = await signUp(phone, password)
         console.log('Sign Up Response:', response.message)
 
         const { id } = response.user
-        next({ id, phone })
+        to('+',{ id, phone })
       } else if (isReset && phone) {
         const response = await putPwdByInfo(`phone:${phone}`, password)
         console.log('Change Password Response:', response.message)
-        next(4)
+        to(4)
       }
     } catch (error) {
       console.error(error.message)

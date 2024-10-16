@@ -2,9 +2,9 @@
 import StepCard from '../../../components/StepCard'
 import Success from '../../../components/StepCard/Success'
 
-function Step3({ name }) {
+function Step3() {
   return (
-    <StepCard name={name} steps>
+    <StepCard title="註冊成功!" steps>
       <Success />
     </StepCard>
   )
