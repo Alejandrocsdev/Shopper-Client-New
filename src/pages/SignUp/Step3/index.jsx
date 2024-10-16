@@ -4,7 +4,7 @@ import Success from '../../../components/StepCard/Success'
 
 function Step3({ name }) {
   return (
-    <StepCard name={name}>
+    <StepCard name={name} steps>
       <Success />
     </StepCard>
   )

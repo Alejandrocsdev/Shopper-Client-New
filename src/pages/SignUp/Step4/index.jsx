@@ -11,18 +11,15 @@ import StepCard from '../../../components/StepCard'
 import avatarPng from '../../../assets/img/avatar/avatar.png'
 
 function Step4({ name }) {
+  const navigate = useNavigate()
   const { user, next } = useAuthStep()
   const { id, username, avatar, phone } = user
-
-  // 導向
-  const navigate = useNavigate()
 
   // 處理表單提交事件
   const handleAutoSignIn = async () => {
     try {
       const response = await autoSignIn(id)
       console.log('Response:', response.message)
-
       console.log('Access Token:', response.accessToken)
       navigate('/')
     } catch (err) {

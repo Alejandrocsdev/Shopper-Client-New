@@ -4,8 +4,8 @@ import OtpForm from '../../../components/StepCard/OtpForm'
 
 function Step1({ name, back }) {
   return (
-    <StepCard back={back} steps name={name}>
-      <OtpForm />
+    <StepCard back={back} name={name}>
+      <OtpForm isSms />
     </StepCard>
   )
 }

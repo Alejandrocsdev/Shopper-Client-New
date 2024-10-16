@@ -22,7 +22,7 @@ function SignUp() {
   return (
     <>
       {step === 0 && <SignCard />}
-      {step === 1 && <Step1 back name="輸入驗證碼" />}
+      {step === 1 && <Step1 back={true} name="輸入驗證碼" />}
       {step === 2 && <Step2 name="設定您的密碼" />}
       {step === 3 && <Step3 name="註冊成功!" />}
       {step === 4 && <Step4 name="這是您的帳號嗎?" />}

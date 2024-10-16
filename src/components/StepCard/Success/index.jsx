@@ -14,21 +14,18 @@ import Icon from '../../Icon'
 
 // 成功頁面: 註冊 / 重設密碼
 function Success() {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { user } = useAuthStep()
   const { isSignUp, isReset } = useAuthMode().modeStates
 
   const { id, phone } = user
 
-  // 導向
-  const navigate = useNavigate()
-
   const handleRedirect = async () => {
     if (isSignUp) {
       try {
         const response = await autoSignIn(id)
-        console.log('Response:', response.message)
-
+        console.log('Auto Sign In Response:', response.message)
         console.log('Access Token:', response.accessToken)
         navigate('/')
       } catch (err) {
@@ -39,13 +36,11 @@ function Success() {
     }
   }
 
-  // Using useCountdown hook, starts from 10 seconds and triggers handleSubmit when finished
-  const { count, isCounting, startCountdown } = useCountdown(10, handleRedirect)
+  const { count, startCountdown } = useCountdown(10, handleRedirect)
 
-  // Start the countdown on mount
   useEffect(() => {
-    startCountdown() // Start countdown when component mounts
-  }, []) // Empty dependency array ensures it runs only on mount
+    startCountdown()
+  }, [])
 
   return (
     <>
@@ -55,7 +50,7 @@ function Success() {
       <div className={S.cardText}>
         <div className={S.text}>
           <span>您已成功使用{phone ? '電話號碼' : 'Email'} </span>
-          <span className={S.method}>{phone ? phone : 'email'}</span>
+          <span className={S.method}>{phone || 'email'}</span>
           <div>{isSignUp ? '建立瞎皮爾購物帳號' : '重設密碼'}</div>
         </div>
         <div className={S.text}>

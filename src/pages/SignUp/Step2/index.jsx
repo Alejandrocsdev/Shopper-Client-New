@@ -4,7 +4,7 @@ import PasswordForm from '../../../components/StepCard/PasswordForm'
 
 function Step2({ name }) {
   return (
-    <StepCard name={name}>
+    <StepCard name={name} steps>
       <PasswordForm />
     </StepCard>
   )

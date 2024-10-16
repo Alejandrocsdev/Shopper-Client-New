@@ -3,7 +3,7 @@ import S from './style.module.css'
 // 函式庫 (library)
 import { useState, useRef, useEffect } from 'react'
 
-const OtpInput = ({ length = 6, register, name, setValue, trigger }) => {
+const OtpInput = ({ length = 6, register, name, setValue }) => {
   const inputRefs = useRef([])
   const [otp, setOtp] = useState(new Array(length).fill(''))
 
@@ -24,11 +24,7 @@ const OtpInput = ({ length = 6, register, name, setValue, trigger }) => {
     setOtp(newOtp)
 
     // 額外處理 hidden input 步驟
-    setValue(name, newOtp.join(''))
-    const lastInputValue = newOtp[length - 1]
-    if (index === length - 1) {
-      trigger(name)
-    }
+    setValue(name, newOtp.join(''), { shouldValidate: true })
 
     // 如果當前輸入框已填滿，聚焦下一個輸入框
     if (value && index < length - 1 && inputRefs.current[index + 1]) {

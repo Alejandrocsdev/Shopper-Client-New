@@ -6,18 +6,18 @@ import StepsView from './StepsView'
 // 自訂函式
 import { useAuthStep } from '../../context/AuthStepContext'
 
-function StepCard({ back, name, children }) {
+function StepCard({ back, steps, name, children }) {
   const { previous } = useAuthStep()
 
   return (
     <div className={S.main}>
-      <StepsView />
+      {steps && <StepsView />}
       <div className={S.card}>
         <div className={S.cardHeader}>
           {back && (
-            <a className={S.back} onClick={() => previous()}>
+            <div className={S.back} onClick={() => previous(back)}>
               <Icon icon="faArrowLeftLong" />
-            </a>
+            </div>
           )}
           <div className={S.cardName}>{name}</div>
         </div>

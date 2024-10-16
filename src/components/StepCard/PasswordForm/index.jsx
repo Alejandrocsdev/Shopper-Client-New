@@ -1,6 +1,5 @@
 // 模組樣式
 import S from './style.module.css'
-
 // 函式庫 (library)
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
@@ -31,15 +30,14 @@ function PasswordForm() {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting, dirtyFields },
+    setError,
     setValue,
     trigger,
-    setError,
     watch
   } = useForm({
     resolver: joiResolver(schema),
-    mode: 'onChange', // 'onSubmit' by default
-    reValidateMode: 'onChange', // 'onChange' by default
-    shouldFocusError: false // true by default
+    mode: 'onChange',
+    shouldFocusError: false
   })
 
   const password = watch('password', '')
@@ -47,14 +45,13 @@ function PasswordForm() {
 
   const onSubmit = async (data) => {
     try {
+      const { password } = data
+      console.log('Sent Data:', data)
       if (isSignUp) {
-        console.log('Sent Data:', data)
-
-        const response = await signUp(phone, data.password)
-        console.log('Response:', response.message)
+        const response = await signUp(phone, password)
+        console.log('Sign Up Response:', response.message)
 
         const { id } = response.user
-
         next({ id, phone })
       }
     } catch (error) {

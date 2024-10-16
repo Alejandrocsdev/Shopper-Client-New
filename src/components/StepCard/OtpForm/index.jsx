@@ -6,10 +6,11 @@ import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // 自訂函式 (custom function)
 import { sendOtp, verifyOtp } from '../../../api/request/verification'
 import { findUserByData } from '../../../api/request/user'
+import { smsSignIn } from '../../../api/request/auth'
 import { useAuthStep } from '../../../context/AuthStepContext'
 import { useAuthMode } from '../../../context/AuthModeContext'
 import useCountdown from '../../../hooks/useCountdown'
@@ -19,41 +20,40 @@ import Countdown from './Countdown'
 import OtpInput from './OtpInput'
 import SubmitButton from '../../../components/SignCard/Form/SubmitButton'
 
-function OtpForm() {
+function OtpForm({ isSms }) {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { user, next } = useAuthStep()
-  const { isSignIn, isSignUp } = useAuthMode().modeStates
-  const { count, isCounting, startCountdown } = useCountdown(60, () => {})
+  const { isSignIn, isSignUp, isReset } = useAuthMode().modeStates
+  const { count, isCounting, startCountdown } = useCountdown(60)
 
   const { phone } = user
 
   const schema = Joi.object({
-    otp: Joi.string().length(6).pattern(/^\d+$/).required()
+    otp: Joi.string().length(6).regex(/^\d+$/).required()
   })
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-    setValue,
-    trigger,
     setError,
+    setValue,
     clearErrors
   } = useForm({
     resolver: joiResolver(schema),
-    mode: 'onChange', // 'onSubmit' by default
-    reValidateMode: 'onChange', // 'onChange' by default
-    shouldFocusError: false // true by default
+    mode: 'onChange',
+    shouldFocusError: false
   })
 
   useEffect(() => {
-    startCountdown() // This will trigger the countdown on mount
+    startCountdown()
   }, [])
 
   const handleResend = async () => {
     try {
       clearErrors('root')
-      
+
       const response = await sendOtp(phone)
       console.log('Resend OTP Response:', response.message)
 
@@ -66,14 +66,16 @@ function OtpForm() {
 
   const onSubmit = async (data) => {
     try {
+      const { otp } = data
+      console.log('Sent Data:', data)
+
       if (isSignUp) {
-        console.log('Sent Data:', data)
-
-        const otpResponse = await verifyOtp(phone, data.otp)
-        console.log('OTP Response:', otpResponse.message)
-
-        const userResponse = await findUserByData(`phone:${phone}`)
-        console.log('User Response:', userResponse.message)
+        const [otpResponse, userResponse] = await Promise.all([
+          verifyOtp(phone, otp),
+          findUserByData(`phone:${phone}`)
+        ])
+        console.log('Verify OTP Response:', otpResponse.message)
+        console.log('Find User Response:', userResponse.message)
 
         if (userResponse.user) {
           const { id, username, avatar } = userResponse.user
@@ -81,6 +83,15 @@ function OtpForm() {
         } else {
           next({ phone })
         }
+      } else if (isSms) {
+        const response = await smsSignIn(phone, otp)
+        console.log('SMS Sign In Response:', response.message)
+        console.log('Access Token', response.accessToken)
+        navigate('/')
+      } else if (isReset) {
+        const response = await verifyOtp(phone, otp)
+        console.log('Verify OTP Response:', response.message)
+        next({ phone })
       }
     } catch (error) {
       console.error(error.message)
@@ -99,7 +110,7 @@ function OtpForm() {
       </div>
 
       {/* OTP輸入框 */}
-      <OtpInput register={register} name="otp" setValue={setValue} trigger={trigger} />
+      <OtpInput register={register} name="otp" setValue={setValue} />
 
       {/* OTP發送倒數 & 重新傳送 */}
       {/* <Countdown /> */}

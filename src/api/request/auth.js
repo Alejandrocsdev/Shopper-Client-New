@@ -12,6 +12,11 @@ export const pwdSignIn = axiosError(async (signInKey, password) => {
   return response.data
 })
 
+export const smsSignIn = axiosError(async (phone, otp) => {
+  const response = await axiosPrivate.post(`${base}/sign-in/sms`, { phone, otp })
+  return response.data
+})
+
 export const signUp = axiosError(async (phone, password) => {
   const response = await axiosPublic.post(`${base}/sign-up`, { phone, password })
   return response.data

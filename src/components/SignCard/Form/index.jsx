@@ -1,11 +1,11 @@
 // 模組樣式
 import S from './style.module.css'
 // 函式庫 (library)
-import { useNavigate } from 'react-router-dom'
 import Joi from 'joi'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { useForm } from 'react-hook-form'
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { sendOtp } from '../../../api/request/verification'
@@ -19,18 +19,17 @@ import SubmitButton from './SubmitButton'
 import PasswordInput from './PasswordInput'
 
 // 表單: 密碼登入 / 簡訊登入 / 註冊
-const Form = ({ isSMS }) => {
+const Form = ({ isSms }) => {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const { next } = useAuthStep()
   const { isSignIn, isSignUp } = useAuthMode().modeStates
 
-  // 導向
-  const navigate = useNavigate()
-
   const schema = Joi.object({
-    signInKey: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
-    password: isSignIn ? Joi.string().required() : Joi.string().forbidden(),
-    phone: !isSignIn ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
+    signInKey: isSignIn && !isSms ? Joi.string().required() : Joi.string().forbidden(),
+    password: isSignIn && !isSms ? Joi.string().required() : Joi.string().forbidden(),
+    phone:
+      isSignUp || isSms ? Joi.string().regex(/^09/).length(10).required() : Joi.string().forbidden()
   })
 
   const {
@@ -41,31 +40,26 @@ const Form = ({ isSMS }) => {
     reset
   } = useForm({
     resolver: joiResolver(schema),
-    mode: 'onChange', // 'onSubmit' by default // onSubmit | onBlur | onChange | onTouched | all
-    reValidateMode: 'onChange', // 'onChange' by default // onChange | onBlur | onSubmit = 'onChange'
-    shouldFocusError: false // true by default
+    mode: 'onChange',
+    shouldFocusError: false
   })
-
-  // onTouched: Focuses the field and then blurs (tracks if the field was interacted with).
-  // onDirty: The first time the value of the field changes from its initial state.
-  // onChange: Every time the value changes.
-  // onBlur: When the field loses focus.
 
   useEffect(() => {
     reset()
-  }, [isSignIn, isSignUp])
+  }, [isSignIn, isSignUp, isSms])
 
   const onSubmit = async (data) => {
     try {
-      if (isSignUp) {
-        console.log('Sent Data:', data)
-        const response = await sendOtp(data.phone)
-        console.log('Response:', response.message)
-        next({ phone: data.phone })
-      } else if (isSignIn) {
-        console.log('Sent Data:', data)
-        const response = await pwdSignIn(data.signInKey, data.password)
-        console.log('Response:', response.message)
+      const { phone, signInKey, password } = data
+      console.log('Sent Data:', data)
+
+      if (isSignUp || isSms) {
+        const response = await sendOtp(phone)
+        console.log('Send OTP Response:', response.message)
+        next({ phone })
+      } else if (isSignIn && !isSms) {
+        const response = await pwdSignIn(signInKey, password)
+        console.log('Password Sign In Response:', response.message)
         console.log('Access Token', response.accessToken)
         navigate('/')
       }
@@ -80,7 +74,7 @@ const Form = ({ isSMS }) => {
       {errors.root && <FormError message={errors.root.message} />}
 
       {/* signInKey */}
-      {isSignIn && !isSMS && (
+      {isSignIn && !isSms && (
         <div className={S.inputContainer}>
           <input
             className={`${S.input} ${errors.signInKey ? S.inputWarning : ''}`}
@@ -91,15 +85,15 @@ const Form = ({ isSMS }) => {
         </div>
       )}
       {/* 錯誤訊息 */}
-      {isSignIn && !isSMS && (
+      {isSignIn && !isSms && (
         <div className={S.textWarning}>{errors.signInKey ? t('fillInput') : ''}</div>
       )}
 
       {/* password */}
-      {isSignIn && !isSMS && <PasswordInput register={register} name="password" errors={errors} />}
+      {isSignIn && !isSms && <PasswordInput register={register} name="password" errors={errors} />}
 
       {/* phone */}
-      {(isSignUp || isSMS) && (
+      {(isSignUp || isSms) && (
         <PhoneInput check={isValid} register={register} name="phone" errors={errors} />
       )}
 

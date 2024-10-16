@@ -1,6 +1,7 @@
 // 樣式模組 (css module)
 import S from './style.module.css'
 // 函式庫 (library)
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 // 自訂函式 (custom function)
 import { useAuthStep } from '../../context/AuthStepContext'
@@ -12,11 +13,14 @@ import Anchor from '../Anchor'
 import ThirdPartySign from './ThirdPartySign'
 
 // 樣板: 密碼登入 / 簡訊登入 / 註冊
-function SignCard({ isSMS }) {
+function SignCard() {
   const { t } = useTranslation()
   const { step, next, previous } = useAuthStep()
   const { modeStates } = useAuthMode()
   const { isSignIn, isSignUp } = modeStates
+
+  const [isSms, setIsSms] = useState(false)
+  const toggleSmsSignIn = () => setIsSms(!isSms)
 
   return (
     <div className={S.main}>
@@ -29,7 +33,7 @@ function SignCard({ isSMS }) {
         <h1 className={S.cardName}>{t(isSignUp ? 'signUp' : 'signIn')}</h1>
 
         {/* 表單 */}
-        <Form isSMS={isSMS}/>
+        <Form isSms={isSms} />
 
         {/* 幫助 */}
         <div className={S.help}>
@@ -37,8 +41,8 @@ function SignCard({ isSMS }) {
             {t(isSignIn ? 'forgotPwd' : '')}
           </Anchor>
           {isSignIn && (
-            <div className={S.link} onClick={isSMS ? () => previous() : () => next()}>
-              {t(isSMS ? 'pwdSignIn' : 'smsSignIn')}
+            <div className={S.link} onClick={toggleSmsSignIn}>
+              {t(isSms ? 'pwdSignIn' : 'smsSignIn')}
             </div>
           )}
         </div>

@@ -1,6 +1,6 @@
 // 函式庫 (library)
 import { createContext, useContext, useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const AuthStepContext = createContext()
 
@@ -9,6 +9,7 @@ export const AuthStepProvider = ({ children }) => {
   const [step, setStep] = useState(0)
   const [user, setUser] = useState({})
   const location = useLocation()
+  const navigate = useNavigate()
 
   const next = (step, user) => {
     const stepT = typeof step
@@ -21,7 +22,9 @@ export const AuthStepProvider = ({ children }) => {
     }
   }
 
-  const previous = () => setStep((prevStep) => prevStep - 1)
+  const previous = (path) => {
+    typeof path === 'string' ? navigate(path) : setStep((prevStep) => prevStep - 1)
+  }
 
   useEffect(() => {
     setStep(0)

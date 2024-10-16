@@ -8,7 +8,7 @@ const SubmitButton = ({ style, type = 'submit', isValid, isSubmitting, children 
   return (
     <>
       <button
-        className={`${S.submit} ${isValid ? S.allowed : S.notAllowed} ${style}`}
+        className={`${S.submit} ${isValid ? S.allowed : S.notAllowed} ${style || ''}`}
         type={type}
         disabled={!isValid || isSubmitting}
       >
