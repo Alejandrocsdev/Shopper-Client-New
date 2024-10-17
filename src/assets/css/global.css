@@ -9,6 +9,9 @@
 :root {
   --nav-height: 35px;
   --header-height: 85px;
+}
+
+[data-theme="dark"] {
   --dark-blue: #100D25;
   --blue: #20136d;
   --purple: #423597;
@@ -17,6 +20,20 @@
   --dark-gray: #bfbbdd;
   --gray: #A5A4AB;
   --white: #ECEBF5;
+  --error-red: #ff424f;
+  --error-bg: #ffdae0;
+  --valid-green: #66CC00;
+}
+
+[data-theme="light"] {
+  --dark-blue: #100D25;
+  --blue: #5746b8;
+  --purple: #423597;
+  --dark-celestial: #3da1b9;
+  --celestial: #52d6f7;
+  --dark-gray: #dad7f3;
+  --gray: #A5A4AB;
+  --white: #313030;
   --error-red: #ff424f;
   --error-bg: #ffdae0;
   --valid-green: #66CC00;

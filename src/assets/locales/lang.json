@@ -1,6 +1,7 @@
 {
   "zh": {
     "translation": {
+      "shopper.title": "Shopper ZH",
       "sellerCenter": "賣家中心",
       "signUp": "註冊",
       "signIn": "登入",
@@ -35,6 +36,7 @@
   },
   "en": {
     "translation": {
+      "shopper.title": "Shopper EN",
       "sellerCenter": "Seller Center",
       "signUp": "Sign Up",
       "signIn": "Sign In",
@@ -69,6 +71,7 @@
   },
   "es": {
     "translation": {
+      "shopper.title": "Shopper ES",
       "sellerCenter": "Centro de vendedores",
       "signUp": "Registrarse",
       "signIn": "Iniciar sesión",

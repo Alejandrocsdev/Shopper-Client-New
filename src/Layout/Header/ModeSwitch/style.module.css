@@ -1,0 +1,24 @@
+.modeSwitch {
+  padding: 5px;
+  margin-left: 20px;
+  color: var(--white);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.modeSwitch:hover {
+  background-color: var(--purple);
+}
+
+.modeIcon {
+  width: 20px;
+  height: 20px;
+  transition: transform .5s ease 0s;
+}
+
+.rotate {
+  transform: rotateZ(180deg);
+}

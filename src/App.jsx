@@ -3,7 +3,9 @@ import './assets/css/reset.css'
 import './assets/css/fonts.css'
 import './assets/css/global.css'
 // 語言工具
-import i18n from './utils/i18n'
+import { i18n, supportedLngs } from './utils/i18n'
+// 主題工具
+import { DarkModeProvider } from './context/DarkModeContext'
 // 函式庫 (library)
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, useParams, Navigate } from 'react-router-dom'
@@ -15,31 +17,22 @@ import Home from './pages/Home'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import Reset from './pages/Reset'
+// 錯誤頁面
+import NotFound from './pages/NotFound'
 
 const LangRoutes = () => {
-  // path="/:lang/*"
   const { lang } = useParams()
 
   useEffect(() => {
-    if (['zh', 'en', 'es'].includes(lang)) {
+    if (supportedLngs.includes(lang)) {
       i18n.changeLanguage(lang)
     }
   }, [lang])
 
-  // 使用 useEffect:
-  // 確保"語言變更"發生在元件渲染完成後，
-  // 而不是在渲染過程中直接修改狀態。如果在渲染時直接修改語言狀態，
-  // 可能會導致 React 的錯誤（例如在渲染中調用 setState）。
-  // 使用 useEffect 可以避免無限重複渲染的問題，
-  // 並確保語言切換等副作用在適當的時間點執行，
-  // 保持元件的渲染邏輯純淨和穩定。
-
-  if (!['zh', 'en', 'es'].includes(lang)) {
-    return <Navigate to={`/${i18n.language}`} replace />
+  if (!supportedLngs.includes(lang)) {
+    // host/wrong => host/zh
+    return <Navigate to={`/${i18n.language}`} />
   }
-
-  // 使用 replace:
-  // 返回上一頁不會回到錯誤路徑
 
   return (
     <Routes>
@@ -52,18 +45,23 @@ const LangRoutes = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/reset" element={<Reset />} />
       </Route>
+      {/* host/zh/wrong => NotFound */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/:lang/*" element={<LangRoutes />} />
-        <Route path="*" element={<Navigate to={`/${i18n.language}`} />} />
-      </Routes>
-    </BrowserRouter>
+    <DarkModeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/:lang/*" element={<LangRoutes />} />
+          {/* host/ => host/zh */}
+          <Route path="/" element={<Navigate to={`/${i18n.language}`} />} />
+        </Routes>
+      </BrowserRouter>
+    </DarkModeProvider>
   )
 }
 

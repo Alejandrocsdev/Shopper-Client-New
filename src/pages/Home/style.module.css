@@ -1,3 +1,28 @@
 .main {
   height: calc(100vh - var(--nav-height) - var(--header-height));
 }
+
+.ul {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.li {
+  width: 200px;
+  padding: 5px;
+  background-color: aqua;
+  border-radius: 5px;
+  border: 2px solid black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.li:hover {
+  background-color: rgb(25, 138, 138);
+}
+
+.active {
+  background-color: rgb(25, 138, 138);
+}

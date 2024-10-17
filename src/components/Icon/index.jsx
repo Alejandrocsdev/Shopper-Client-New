@@ -9,7 +9,10 @@ import {
   faEyeSlash,
   faCheck,
   faArrowRightLong,
-  faArrowLeftLong
+  faArrowLeftLong,
+  faEarthAmericas,
+  faAngleDown,
+  faCircleHalfStroke
 } from '@fortawesome/free-solid-svg-icons'
 
 // Icon mapping
@@ -25,7 +28,10 @@ const iconMap = {
   faEyeSlash,
   faCheck,
   faArrowRightLong,
-  faArrowLeftLong
+  faArrowLeftLong,
+  faEarthAmericas,
+  faAngleDown,
+  faCircleHalfStroke
 }
 
 // 圖示

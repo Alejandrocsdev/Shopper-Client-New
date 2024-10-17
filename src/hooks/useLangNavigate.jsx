@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import i18n from '../utils/i18n' // Your i18n instance
+import { i18n } from '../utils/i18n'
 
 const useLangNavigate = () => {
   const navigate = useNavigate()

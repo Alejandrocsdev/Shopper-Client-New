@@ -1,0 +1,70 @@
+.langSwitch {
+  position: relative;
+}
+
+.langBtn {
+  padding: 5px;
+  margin-left: 20px;
+  color: var(--white);
+  background-color: var(--purple);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.langBtn:hover {
+  color: var(--gray);
+}
+
+.globe {
+  width: 20px;
+  height: 20px;
+}
+
+.arrow {
+  transition: transform .5s ease 0s;
+}
+
+.rotate {
+  transform: rotateX(180deg);
+}
+
+.dropdown {
+  padding: 5px;
+  background-color: var(--gray);
+  border-radius: 5px;
+  position: absolute;
+  right: 0;
+  top: var(--nav-height);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transform-origin: top;
+  transition: all .5s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.showDrop {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.li {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.li:hover {
+  background-color: var(--dark-gray);
+}
+
+.active {
+  background-color: var(--dark-gray);
+}

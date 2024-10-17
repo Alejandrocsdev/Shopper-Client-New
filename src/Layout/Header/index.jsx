@@ -3,13 +3,14 @@ import S from './style.module.css'
 // 函式庫 (library)
 import { useTranslation } from 'react-i18next'
 // 組件 (component)
+import Icon from '../../components/Icon'
 import Logo from '../../components/Logo'
 import Anchor from '../../components/Anchor'
 import SignLink from './SignLink'
 import SearchBar from './SearchBar'
+import ModeSwitch from './ModeSwitch'
+import LangSwitch from './LangSwitch'
 import ProfileLink from './ProfileLink'
-// 組件 (component)
-import Icon from '../../components/Icon'
 
 // 模仿用戶狀態
 const user = false
@@ -23,14 +24,14 @@ function Header() {
       <nav className={S.nav}>
         <div className={S.navLeft}>
           <Anchor style={S.seller} int="/seller">
-          {t('sellerCenter')}
+            {t('sellerCenter')}
           </Anchor>
         </div>
         <div className={S.navRight}>
-          <div>
-            {!user && <SignLink />}
-            {user && <ProfileLink avatar="" username="newlean14" />}
-          </div>
+          {!user && <SignLink />}
+          {user && <ProfileLink avatar="" username="newlean14" />}
+          <LangSwitch />
+          <ModeSwitch />
         </div>
       </nav>
       <header className={S.header}>
